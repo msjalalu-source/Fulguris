@@ -82,7 +82,6 @@ android {
             proguardFiles getDefaultProguardFile(
                     'proguard-android-optimize.txt'),
                     'proguard-project.txt'
-            applicationIdSuffix = ".debug"
             enableUnitTestCoverage = true
             enableAndroidTestCoverage = true
         }
@@ -128,7 +127,7 @@ android {
         slions {
             dimension "BRAND"
             isDefault = true
-            applicationId "net.slions.fulguris"
+            applicationId "com.muslim.browser.pro"
             versionCode libs.versions.slions.version.code.get().toInteger()
             versionName libs.versions.slions.version.name.get()
         }
@@ -152,14 +151,12 @@ android {
             dimension "VERSION"
             isDefault = true
             buildConfigField "boolean", "FULL_VERSION", "Boolean.parseBoolean(\"true\")"
-            applicationIdSuffix ".full"
         }
 
         /*
         lite {
             dimension "VERSION"
             buildConfigField "boolean", "FULL_VERSION", "Boolean.parseBoolean(\"false\")"
-            applicationIdSuffix ".lite"
         }
         */
 
@@ -171,20 +168,17 @@ android {
 
         playstore {
             dimension "PUBLISHER"
-            applicationIdSuffix ".playstore"
             buildConfigField "fulguris.Sponsorship", "SPONSORSHIP", "fulguris.Sponsorship.TIN"
         }
 
         download {
             dimension "PUBLISHER"
             isDefault = true
-            applicationIdSuffix ".download"
             buildConfigField "fulguris.Sponsorship", "SPONSORSHIP", "fulguris.Sponsorship.BRONZE"
         }
 
         fdroid {
             dimension "PUBLISHER"
-            applicationIdSuffix ".fdroid"
             buildConfigField "fulguris.Sponsorship", "SPONSORSHIP", "fulguris.Sponsorship.BRONZE"
         }
 
@@ -197,7 +191,6 @@ android {
         // the Firebase plugins. See docs/features/agent-variant.md.
         agent {
             dimension "PUBLISHER"
-            applicationIdSuffix ".agent"
             buildConfigField "fulguris.Sponsorship", "SPONSORSHIP", "fulguris.Sponsorship.BRONZE"
         }
 
