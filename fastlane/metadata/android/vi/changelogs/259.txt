@@ -1,4 +1,0 @@
-📂 Cải thiện hộp thoại xác nhận xóa tất cả dấu trang
-🗺️ Nhấn giữ các nút điều hướng menu để truy cập lịch sử trang
-🧭 Sửa các vấn đề về tiêu đề trang và nút điều hướng menu khi điều hướng lịch sử
-🪲 Nhiều cải tiến và sửa lỗi khác nhau

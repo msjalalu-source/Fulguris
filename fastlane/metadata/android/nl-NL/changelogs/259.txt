@@ -1,4 +1,0 @@
-📂 Verbeterd bevestigingsvenster voor het verwijderen van alle bladwijzers
-🗺️ Druk lang op menunavigatiebuttonsen om paginageschiedenis te openen
-🧭 Probleem met paginatitel en menunavigatieknoppen opgelost bij navigeren door geschiedenis
-🪲 Diverse verbeteringen en bugfixes

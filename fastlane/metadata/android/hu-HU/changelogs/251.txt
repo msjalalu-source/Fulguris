@@ -1,9 +1,0 @@
-⚙️ Új egyéni menük
-🎭 Témák frissítése
-🇮🇳 Hindi nyelvi támogatás hozzáadása
-🌍 Több lokalizációs frissítés
-🧪 Az oldaligénylési funkció most béta verzióban
-🚀 Alkalmazásindítási funkciók javítása
-🗺️ Geo séma támogatás hozzáadása – térképlinkek
-🪲 Helyi menü ugrások javítása néhány összehajtható belső képernyőn
-🐛 Különféle felhasználói felület javítások és hibajavítások

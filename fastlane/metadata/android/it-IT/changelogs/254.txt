@@ -1,3 +1,0 @@
-🧩 Aggiungi supporto per le estensioni
-🪲 Risolto il problema per cui la modalità scura e altre impostazioni di dominio non venivano sempre applicate correttamente
-🐛 Vari miglioramenti e correzioni di bug

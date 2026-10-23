@@ -1,3 +1,0 @@
-🧩 Ajout de la prise en charge des extensions
-🪲 Correction d'un problème où le mode sombre et d'autres paramètres de domaine ne s'appliquaient pas toujours correctement
-🐛 Diverses améliorations et corrections de bogues

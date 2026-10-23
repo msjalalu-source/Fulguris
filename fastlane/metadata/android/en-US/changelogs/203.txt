@@ -1,1 +1,0 @@
-🪲️ Splash screen crash fix for Android 12

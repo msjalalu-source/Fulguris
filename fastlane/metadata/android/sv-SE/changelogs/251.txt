@@ -1,9 +1,0 @@
-⚙️ Nya anpassade menyer
-🎭 Uppdatera teman
-🇮🇳 Lägg till stöd för hindi-språket
-🌍 Flera lokaliseringsuppdateringar
-🧪 Sidförfrågningsfunktion nu i beta
-🚀 Förbättra appstartfunktioner
-🗺️ Lägg till stöd för geo-schema – kartlänkar
-🪲 Åtgärda kontextmenyhopp på vissa vikbara inre skärmar
-🐛 Diverse UI-förbättringar och buggfixar

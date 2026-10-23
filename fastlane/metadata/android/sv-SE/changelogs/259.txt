@@ -1,4 +1,0 @@
-📂 Förbättrad bekräftelsedialog för radering av alla bokmärken
-🗺️ Långtryck på menynavigeringsknappar för att komma åt sidhistorik
-🧭 Åtgärda problem med sidtitel och menynavigeringsknappar vid navigering i historik
-🪲 Diverse förbättringar och buggfixar

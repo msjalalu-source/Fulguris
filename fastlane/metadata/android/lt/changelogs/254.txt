@@ -1,3 +1,0 @@
-🧩 Pridėti plėtinių palaikymą
-🪲 Ištaisyti problemą, kai tamsus režimas ir kiti domeno nustatymai ne visada buvo teisingai taikomi
-🐛 Įvairūs patobulinimai ir klaidų taisymai

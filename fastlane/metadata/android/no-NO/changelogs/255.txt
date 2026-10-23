@@ -1,3 +1,0 @@
-📥 Forbedre nedlastingsdialog med filtypedeteksjon
-🪲 Rett krasj ved oppstart med ugyldig favicon
-🚀 Skjul lanseringsmenyvalg for bokmerker, historikkfane og andre innebygde sider

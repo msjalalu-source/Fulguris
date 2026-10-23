@@ -1,3 +1,0 @@
-🧩 Tambahkan dukungan untuk ekstensi
-🪲 Perbaiki masalah di mana mode gelap dan pengaturan domain lainnya tidak selalu diterapkan dengan benar
-🐛 Berbagai perbaikan dan perbaikan bug

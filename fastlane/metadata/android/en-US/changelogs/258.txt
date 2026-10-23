@@ -1,4 +1,0 @@
-📂 Support for bookmarks nested folders
-📤 Export bookmarks as HTML
-📊 Download list improvements
-🪲 Various improvements and bug fixes

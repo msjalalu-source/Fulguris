@@ -1,9 +1,0 @@
-⚙️ Menu tùy chỉnh mới
-🎭 Cập nhật chủ đề
-🇮🇳 Thêm hỗ trợ ngôn ngữ Hindi
-🌍 Nhiều cập nhật bản địa hóa
-🧪 Tính năng yêu cầu trang hiện đang ở phiên bản beta
-🚀 Cải thiện các tính năng khởi chạy ứng dụng
-🗺️ Thêm hỗ trợ cho lược đồ địa lý – liên kết bản đồ
-🪲 Sửa lỗi nhảy menu ngữ cảnh trên một số màn hình bên trong có thể gập
-🐛 Nhiều cải tiến giao diện người dùng và sửa lỗi

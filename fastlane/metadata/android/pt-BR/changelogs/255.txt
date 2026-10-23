@@ -1,3 +1,0 @@
-📥 Melhorar diálogo de download com detecção de tipo de arquivo
-🪲 Corrigir falha na inicialização com favicon inválido
-🚀 Ocultar item de menu de inicialização para favoritos, aba de histórico e outras páginas integradas

@@ -1,4 +1,0 @@
-📂 Forbedret bekræftelsesdialog til sletning af alle bogmærker
-🗺️ Langt tryk på menunavigationsknapper for at få adgang til sidehistorik
-🧭 Løst problemer med sidetitel og menunavigationsknapper ved navigation i historik
-🪲 Diverse forbedringer og fejlrettelser

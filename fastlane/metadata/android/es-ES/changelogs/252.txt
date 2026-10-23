@@ -1,3 +1,0 @@
-🖥️ Añadir consola JavaScript
-📊 Mejorar visualización de solicitudes
-🐛 Varias mejoras de la interfaz de usuario y correcciones de errores

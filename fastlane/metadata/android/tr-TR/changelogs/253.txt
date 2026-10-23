@@ -1,6 +1,0 @@
-🗺️ Alan adı başına konum izinleri
-🌐 Ağ motoru seçimi ekle (OkHttp, HttpUrlConnection)
-🍪 Çerezler menü öğesi ve sayı gösterimi ekle
-🚫 Reklam engelleyici menü öğesi engellenen istek sayısını gösterir
-📋 Menüde geçerli oturum adını görüntüle
-🐛 Çeşitli kullanıcı arayüzü iyileştirmeleri ve hata düzeltmeleri

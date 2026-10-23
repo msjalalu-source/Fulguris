@@ -1,9 +1,0 @@
-⚙️ Nieuwe aangepaste menu's
-🎭 Thema's bijwerken
-🇮🇳 Hindi-taalondersteuning toevoegen
-🌍 Meerdere lokalisatie-updates
-🧪 Paginaaanvraagfunctie nu in bèta
-🚀 App-startfuncties verbeteren
-🗺️ Ondersteuning voor geo-schema toevoegen – kaartlinks
-🪲 Context menu-sprongen op sommige vouwbare binnenste schermen oplossen
-🐛 Diverse UI-verbeteringen en bugfixes

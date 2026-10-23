@@ -1,3 +1,0 @@
-🧩 Uzantı desteği ekle
-🪲 Karanlık mod ve diğer alan ayarlarının her zaman doğru şekilde uygulanmadığı sorunu düzelt
-🐛 Çeşitli iyileştirmeler ve hata düzeltmeleri

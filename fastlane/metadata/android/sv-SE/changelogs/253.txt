@@ -1,6 +1,0 @@
-🗺️ Platsbehörigheter per domän
-🌐 Lägg till val av nätverksmotor (OkHttp, HttpUrlConnection)
-🍪 Lägg till menyalternativ för cookies och visning av antal
-🚫 Menyalternativ för annonsblockering visar antal blockerade förfrågningar
-📋 Visa aktuellt sessionsnamn i menyn
-🐛 Diverse UI-förbättringar och buggfixar

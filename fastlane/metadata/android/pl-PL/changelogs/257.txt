@@ -1,5 +1,0 @@
-📥 Postępująca lista pobierania
-📑 Ulepszenia menedżera sesji
-⚙️ Eksportuj sesje przez ustawienia systemowe bez uruchamiania aplikacji
-🕒 Długie naciśnięcie przycisków wstecz/dalej aby zobaczyć historię strony
-🪲 Różne ulepszenia i poprawki błędów

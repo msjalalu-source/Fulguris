@@ -1,9 +1,0 @@
-⚙️ Meniuri personalizate noi
-🎭 Actualizare teme
-🇮🇳 Adăugare suport pentru limba hindi
-🌍 Mai multe actualizări de localizare
-🧪 Funcția de cereri de pagină acum în beta
-🚀 Îmbunătățire funcții de lansare aplicație
-🗺️ Adăugare suport pentru schema geo – linkuri de hărți
-🪲 Corectare sărituri meniu contextual pe unele ecrane interioare pliabile
-🐛 Diverse îmbunătățiri UI și corecții de erori

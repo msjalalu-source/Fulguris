@@ -1,5 +1,0 @@
-📥 Progressiv nedladdningslista
-📑 Förbättringar av sessionshanteraren
-⚙️ Exportera sessioner via systeminställningar utan att starta appen
-🕒 Långtryck på bakåt-/framåt-knapparna för att visa sidhistorik
-🪲 Diverse förbättringar och buggfixar

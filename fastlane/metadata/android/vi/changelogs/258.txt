@@ -1,4 +1,0 @@
-📂 Hỗ trợ thư mục dấu trang lồng nhau
-📤 Xuất dấu trang dưới dạng HTML
-📊 Cải thiện danh sách tải xuống
-🪲 Nhiều cải tiến và sửa lỗi khác nhau

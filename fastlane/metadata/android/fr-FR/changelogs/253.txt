@@ -1,6 +1,0 @@
-🗺️ Autorisations de localisation par domaine
-🌐 Ajout de la sélection du moteur réseau (OkHttp, HttpUrlConnection)
-🍪 Ajout d'un élément de menu cookies et affichage du nombre
-🚫 L'élément de menu du bloqueur de publicités affiche le nombre de requêtes bloquées
-📋 Affichage du nom de la session actuelle dans le menu
-🐛 Diverses améliorations de l'interface utilisateur et corrections de bugs

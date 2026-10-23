@@ -1,2 +1,0 @@
-Snabb, anpassningsbar med sessioner, annonsblockering och integritet
-

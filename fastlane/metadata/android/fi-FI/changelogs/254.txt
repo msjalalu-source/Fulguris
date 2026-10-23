@@ -1,3 +1,0 @@
-🧩 Lisää tuki laajennuksille
-🪲 Korjaa ongelma, jossa tumma tila ja muut verkkotunnusasetukset eivät aina toimineet oikein
-🐛 Erilaisia parannuksia ja virheiden korjauksia

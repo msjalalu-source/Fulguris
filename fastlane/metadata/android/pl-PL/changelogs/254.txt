@@ -1,3 +1,0 @@
-🧩 Dodaj obsługę rozszerzeń
-🪲 Napraw problem, w którym tryb ciemny i inne ustawienia domeny nie zawsze były poprawnie stosowane
-🐛 Różne ulepszenia i poprawki błędów

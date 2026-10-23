@@ -1,9 +1,0 @@
-⚙️ Nauji pritaikyti meniu
-🎭 Atnaujinti temos
-🇮🇳 Pridėta hindi kalbos palaikymas
-🌍 Keli lokalizavimo atnaujinimai
-🧪 Puslapio užklausų funkcija dabar beta versijoje
-🚀 Patobulinti programos paleidimo funkcijos
-🗺️ Pridėtas geo schemos palaikymas – žemėlapių nuorodos
-🪲 Ištaisyti kontekstinio meniu šuoliai kai kuriuose sulankstomų vidinių ekranuose
-🐛 Įvairūs vartotojo sąsajos patobulinimai ir klaidų taisymai

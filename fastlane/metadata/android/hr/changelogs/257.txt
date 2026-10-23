@@ -1,5 +1,0 @@
-📥 Progresivni popis preuzimanja
-📑 Poboljšanja upravitelja sesija
-⚙️ Izvoz sesija kroz postavke sustava bez pokretanja aplikacije
-🕒 Dugi pritisak na gumbe natrag/naprijed za prikaz povijesti stranice
-🪲 Razna poboljšanja i ispravci grešaka

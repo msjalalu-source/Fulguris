@@ -1,4 +1,0 @@
-📥 Blob-lataukset
-📺 Kuva kuvassa
-📂 Korjaa kirjansijakansiot, joissa on vain kansioita
-🔄 Paranna pull-to-refresh-toimintoa

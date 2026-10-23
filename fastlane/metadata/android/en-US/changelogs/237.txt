@@ -1,2 +1,0 @@
-🎩Add launcher icon for incognito mode
-⚡Launcher icons support dynamic color

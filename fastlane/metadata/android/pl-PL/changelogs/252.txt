@@ -1,3 +1,0 @@
-🖥️ Dodaj konsolę JavaScript
-📊 Popraw wyświetlanie żądań
-🐛 Różne ulepszenia interfejsu użytkownika i poprawki błędów

@@ -1,6 +1,0 @@
-🗺️ Izin lokasi per domain
-🌐 Tambahkan pemilihan mesin jaringan (OkHttp, HttpUrlConnection)
-🍪 Tambahkan item menu cookie & tampilan jumlah
-🚫 Item menu pemblokir iklan menampilkan jumlah permintaan yang diblokir
-📋 Tampilkan nama sesi saat ini di menu
-🐛 Berbagai perbaikan UI dan perbaikan bug

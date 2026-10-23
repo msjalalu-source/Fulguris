@@ -1,3 +1,0 @@
-🖥️ Add JavaScript console
-📊 Improve requests display
-🐛 Various UI improvements and bug fixes

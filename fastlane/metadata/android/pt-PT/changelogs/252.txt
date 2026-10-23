@@ -1,3 +1,0 @@
-🖥️ Adicionar consola JavaScript
-📊 Melhorar visualização de pedidos
-🐛 Várias melhorias de UI e correções de erros

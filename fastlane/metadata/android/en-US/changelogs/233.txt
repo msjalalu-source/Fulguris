@@ -1,5 +1,0 @@
-🔧 Maintenance changes
-🎨 Settings use newer Material Design switches
-❌ Remove HTTP proxy feature
-🪲 Fix crashes on Android 5/6/7 devices
-🏳️‍🌈 Translations update

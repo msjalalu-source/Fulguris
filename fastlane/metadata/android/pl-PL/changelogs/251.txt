@@ -1,9 +1,0 @@
-⚙️ Nowe niestandardowe menu
-🎭 Aktualizacja motywów
-🇮🇳 Dodano obsługę języka hindi
-🌍 Wiele aktualizacji lokalizacji
-🧪 Funkcja żądań strony teraz w wersji beta
-🚀 Ulepszone funkcje uruchamiania aplikacji
-🗺️ Dodano obsługę schematu geo – linki do map
-🪲 Naprawiono skoki menu kontekstowego na niektórych składanych ekranach wewnętrznych
-🐛 Różne ulepszenia interfejsu użytkownika i poprawki błędów

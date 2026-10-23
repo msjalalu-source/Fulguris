@@ -1,3 +1,0 @@
-📥 Verbeter downloaddialoog met bestandstypedetectie
-🪲 Crash bij opstarten met ongeldige favicon opgelost
-🚀 Verberg startmenu-item voor bladwijzers, geschiedenistabblad en andere ingebouwde pagina's

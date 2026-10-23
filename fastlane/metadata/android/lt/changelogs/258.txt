@@ -1,4 +1,0 @@
-📂 Įdėtų žymių aplankų palaikymas
-📤 Žymių eksportavimas į HTML
-📊 Atsisiuntimų sąrašo patobulinimai
-🪲 Įvairūs patobulinimai ir klaidų taisymai

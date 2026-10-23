@@ -1,3 +1,0 @@
-📥 Mejorar diálogo de descarga con detección de tipo de archivo
-🪲 Corregir bloqueo al inicio con favicon no válido
-🚀 Ocultar elemento de menú de inicio para marcadores, pestaña de historial y otras páginas integradas

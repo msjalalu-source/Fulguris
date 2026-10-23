@@ -1,4 +1,0 @@
-📥 Blob-nedladdningar
-📺 Bild i bild
-📂 Åtgärd för bokmärkesmappar som bara innehåller mappar
-🔄 Förbättrad dra ned för att uppdatera

@@ -1,3 +1,0 @@
-📥 Improve download dialogue with file type detection
-🪲 Fix crash on start-up with invalid favicon
-🚀 Hide launch menu item for bookmarks, history tab and other built-in pages

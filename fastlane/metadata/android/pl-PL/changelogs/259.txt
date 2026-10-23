@@ -1,4 +1,0 @@
-📂 Ulepszone okno potwierdzenia usunięcia wszystkich zakładek
-🗺️ Długie naciśnięcie przycisków nawigacji menu, aby uzyskać dostęp do historii strony
-🧭 Naprawiono problemy z tytułem strony i przyciskami nawigacji menu podczas nawigacji historii
-🪲 Różne ulepszenia i poprawki błędów

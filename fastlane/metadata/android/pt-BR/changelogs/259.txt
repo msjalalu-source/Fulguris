@@ -1,4 +1,0 @@
-📂 Caixa de diálogo de confirmação aprimorada para excluir todos os favoritos
-🗺️ Pressione longamente nos botões de navegação do menu para acessar o histórico da página
-🧭 Correção de problemas do título da página e botões de navegação do menu ao navegar no histórico
-🪲 Várias melhorias e correções de bugs

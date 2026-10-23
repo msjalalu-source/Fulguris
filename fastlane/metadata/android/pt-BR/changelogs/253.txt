@@ -1,6 +1,0 @@
-🗺️ Permissões de localização por domínio
-🌐 Adicionar seleção de mecanismo de rede (OkHttp, HttpUrlConnection)
-🍪 Adicionar item de menu de cookies e exibição de contagem
-🚫 Item de menu do bloqueador de anúncios mostra contagem de solicitações bloqueadas
-📋 Exibir nome da sessão atual no menu
-🐛 Várias melhorias de interface e correções de bugs

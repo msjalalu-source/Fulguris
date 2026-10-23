@@ -1,5 +1,0 @@
-📥 Progresszív letöltési lista
-📑 Munkamenetkezelő fejlesztései
-⚙️ Munkamenetek exportálása a rendszerbeállításokon keresztül az alkalmazás elindítása nélkül
-🕒 Hosszan nyomja meg a vissza/előre gombokat az oldal előzményeinek megtekintéséhez
-🪲 Különféle fejlesztések és hibajavítások

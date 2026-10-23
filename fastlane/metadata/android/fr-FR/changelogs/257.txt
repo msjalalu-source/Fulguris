@@ -1,5 +1,0 @@
-📥 Liste de téléchargements progressive
-📑 Améliorations du gestionnaire de sessions
-⚙️ Exportez les sessions via les paramètres système sans démarrer l'application
-🕒 Appui long sur les boutons précédent/suivant pour afficher l'historique de la page
-🪲 Diverses améliorations et corrections de bugs

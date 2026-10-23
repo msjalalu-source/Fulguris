@@ -1,6 +1,0 @@
-🗺️ Location permissions per domain
-🌐 Add network engine selection (OkHttp, HttpUrlConnection)
-🍪 Add cookies menu item & count display
-🚫 Ad blocker menu item shows blocked requests count
-📋 Display current session name on menu
-🐛 Various UI improvements and bug fixes

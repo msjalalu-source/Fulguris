@@ -1,4 +1,0 @@
-📥 Pobieranie Blob
-📺 Obraz w obrazie
-📂 Naprawiono foldery zakładek zawierające tylko foldery
-🔄 Ulepszono odświeżanie przeciągnięciem

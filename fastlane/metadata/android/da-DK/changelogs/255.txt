@@ -1,3 +1,0 @@
-📥 Forbedret downloaddialog med filtype-registrering
-🪲 Ret nedbrud ved opstart med ugyldig favicon
-🚀 Skjul start-menupunkt for bogmærker, historikfane og andre indbyggede sider

@@ -1,4 +1,0 @@
-📂 Ondersteuning voor geneste bladwijzermappen
-📤 Exporteer bladwijzers als HTML
-📊 Verbeteringen downloadlijst
-🪲 Diverse verbeteringen en bugfixes

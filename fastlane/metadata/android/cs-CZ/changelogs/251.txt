@@ -1,9 +1,0 @@
-⚙️ Nové vlastní nabídky
-🎭 Aktualizace motivů
-🇮🇳 Přidána podpora hindštiny
-🌍 Několik aktualizací lokalizace
-🧪 Funkce požadavků stránky nyní v beta verzi
-🚀 Vylepšení funkcí spouštění aplikace
-🗺️ Přidána podpora pro geo schéma – odkazy na mapy
-🪲 Oprava poskakování kontextové nabídky na některých skládacích vnitřních obrazovkách
-🐛 Různá vylepšení uživatelského rozhraní a opravy chyb

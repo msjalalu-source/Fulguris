@@ -1,6 +1,0 @@
-🗺️ Quyền vị trí theo tên miền
-🌐 Thêm lựa chọn công cụ mạng (OkHttp, HttpUrlConnection)
-🍪 Thêm mục menu cookie và hiển thị số lượng
-🚫 Mục menu chặn quảng cáo hiển thị số lượng yêu cầu bị chặn
-📋 Hiển thị tên phiên hiện tại trên menu
-🐛 Nhiều cải tiến giao diện người dùng và sửa lỗi

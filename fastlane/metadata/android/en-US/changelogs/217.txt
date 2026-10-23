@@ -1,3 +1,0 @@
-⚙️ Third party app launch prompt disabled by default
-🪲 Fix empty tabs when tab change animations disabled
-🌐 Translations update

@@ -1,3 +1,0 @@
-🖥️ Lisää JavaScript-konsoli
-📊 Paranna pyyntöjen näyttöä
-🐛 Erilaisia käyttöliittymäparannuksia ja virheiden korjauksia

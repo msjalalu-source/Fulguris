@@ -1,4 +1,0 @@
-📂 Boîte de dialogue de confirmation de suppression améliorée pour tous les favoris
-🗺️ Appui long sur les boutons de navigation du menu pour accéder à l'historique de la page
-🧭 Correction du titre de page et des boutons de navigation du menu lors de la navigation dans l'historique
-🪲 Diverses améliorations et corrections de bugs

@@ -1,4 +1,0 @@
-🪲Fix cut-out notch area configuration regression issue
-
-Translations update:
-🇯🇵 Japanese

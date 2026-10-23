@@ -1,5 +1,0 @@
-📥 Progressiv nedlastingsliste
-📑 Forbedringer av øktbehandler
-⚙️ Eksporter økter via systeminnstillinger uten å starte appen
-🕒 Langt trykk på tilbake/frem-knapper for å vise sidehistorikk
-🪲 Diverse forbedringer og feilrettinger

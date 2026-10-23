@@ -1,4 +1,0 @@
-📂 Improved delete all bookmarks confirmation dialog
-🗺️ Long press menu navigation buttons to access page history
-🧭 Fix page title and menu navigation buttons issues when navigating page history
-🪲 Various improvements and bug fixes

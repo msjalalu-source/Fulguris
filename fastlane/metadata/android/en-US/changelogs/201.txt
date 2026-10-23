@@ -1,2 +1,0 @@
-⭐Domain settings basics
-🪲Fix broken downloads on Android 8

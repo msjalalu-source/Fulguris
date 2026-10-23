@@ -1,4 +1,0 @@
-📂 Dialog konfirmasi penghapusan semua bookmark yang ditingkatkan
-🗺️ Tekan lama tombol navigasi menu untuk mengakses riwayat halaman
-🧭 Perbaikan masalah judul halaman dan tombol navigasi menu saat menavigasi riwayat
-🪲 Berbagai peningkatan dan perbaikan bug

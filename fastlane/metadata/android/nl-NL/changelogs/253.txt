@@ -1,6 +1,0 @@
-🗺️ Locatiemachtigingen per domein
-🌐 Netwerkenginekeuze toegevoegd (OkHttp, HttpUrlConnection)
-🍪 Cookiesmenu-item en telweergave toegevoegd
-🚫 Advertentieblokker-menu-item toont aantal geblokkeerde verzoeken
-📋 Huidige sessienaam weergeven in menu
-🐛 Diverse UI-verbeteringen en bugfixes

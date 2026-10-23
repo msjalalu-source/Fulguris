@@ -1,3 +1,0 @@
-🧩 Unterstützung für Erweiterungen hinzugefügt
-🪲 Problem behoben, bei dem Dunkelmodus und andere Domain-Einstellungen nicht immer korrekt angewendet wurden
-🐛 Verschiedene Verbesserungen und Fehlerbehebungen

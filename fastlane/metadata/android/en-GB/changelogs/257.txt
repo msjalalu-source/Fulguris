@@ -1,5 +1,0 @@
-📥 Progressive Downloads list
-📑 Sessions manager improvements
-⚙️ Export sessions through system settings without starting the app
-🕒 Long press back/forward buttons to view page history
-🪲 Various improvements and bug fixes

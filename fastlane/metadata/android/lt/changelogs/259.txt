@@ -1,4 +1,0 @@
-📂 Patobulintas patvirtinimo dialogas visų žymių ištrynimui
-🗺️ Ilgai paspauskite meniu navigacijos mygtukus, kad pasiektumėte puslapio istoriją
-🧭 Išspręstos problemos su puslapio pavadinimu ir meniu navigacijos mygtukais naršant istoriją
-🪲 Įvairūs patobulinimai ir klaidų taisymai

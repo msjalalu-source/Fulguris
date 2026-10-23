@@ -1,4 +1,0 @@
-📥 Descargas Blob
-📺 Imagen en imagen
-📂 Corrección de carpetas de marcadores que solo contienen carpetas
-🔄 Mejora del deslizar para actualizar

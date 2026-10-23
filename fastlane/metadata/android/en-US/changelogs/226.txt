@@ -1,1 +1,0 @@
-🪲 Fix crash on start-up on older Android versions

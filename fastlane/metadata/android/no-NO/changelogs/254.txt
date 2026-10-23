@@ -1,3 +1,0 @@
-🧩 Legg til støtte for utvidelser
-🪲 Løs problem hvor mørk modus og andre domeneinnstillinger ikke alltid ble brukt riktig
-🐛 Diverse forbedringer og feilrettinger

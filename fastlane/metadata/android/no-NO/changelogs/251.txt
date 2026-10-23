@@ -1,9 +1,0 @@
-⚙️ Nye tilpassede menyer
-🎭 Oppdater temaer
-🇮🇳 Legg til støtte for hindispråk
-🌍 Flere lokaliseringsoppdateringer
-🧪 Sideforespørselsfunksjon nå i beta
-🚀 Forbedre applanseringsfunksjoner
-🗺️ Legg til støtte for geo-skjema – kartlenker
-🪲 Rett kontekstmenyhopp på noen brette indre skjermer
-🐛 Diverse UI-forbedringer og feilrettinger

@@ -1,6 +1,0 @@
-🗺️ Helyengedélyek tartományonként
-🌐 Hálózati motor kiválasztás hozzáadása (OkHttp, HttpUrlConnection)
-🍪 Cookie menüpont és számláló megjelenítés hozzáadása
-🚫 A hirdetésblokkoló menüpont megjeleníti a blokkolt kérések számát
-📋 Aktuális munkamenet nevének megjelenítése a menüben
-🐛 Különféle felhasználói felület javítások és hibajavítások

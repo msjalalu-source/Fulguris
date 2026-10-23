@@ -1,3 +1,0 @@
-🧩 Lägg till stöd för tillägg
-🪲 Åtgärda problem där mörkt läge och andra domäninställningar inte alltid tillämpades korrekt
-🐛 Diverse förbättringar och buggfixar

@@ -1,5 +1,0 @@
-📥 Progressiv downloadliste
-📑 Forbedringer af sessionsstyring
-⚙️ Eksporter sessioner via systemindstillinger uden at starte appen
-🕒 Langt tryk på tilbage/frem-knapper for at se sidehistorik
-🪲 Forskellige forbedringer og fejlrettelser

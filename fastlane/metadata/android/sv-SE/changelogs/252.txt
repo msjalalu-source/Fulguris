@@ -1,3 +1,0 @@
-🖥️ Lägg till JavaScript-konsol
-📊 Förbättra förfrågningsvisning
-🐛 Diverse UI-förbättringar och buggfixar

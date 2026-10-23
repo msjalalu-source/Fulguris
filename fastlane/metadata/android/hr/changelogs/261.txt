@@ -1,4 +1,0 @@
-📥 Blob preuzimanja
-📺 Slika u slici
-📂 Ispravak mapa oznaka koje sadrže samo mape
-🔄 Poboljšanje povlačenja za osvježavanje

@@ -1,3 +1,0 @@
-🌆 Move security error option to domain settings
-🔒 Improve security error checks
-🪲️ Add debug settings option for log levels

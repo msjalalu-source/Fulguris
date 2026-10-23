@@ -1,4 +1,0 @@
-📥 Blob-downloads
-📺 Billede i billede
-📂 Ret bogmærkemapper der kun indeholder mapper
-🔄 Forbedret træk for at opdatere

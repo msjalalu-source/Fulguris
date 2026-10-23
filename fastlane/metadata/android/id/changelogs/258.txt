@@ -1,4 +1,0 @@
-📂 Dukungan untuk folder bookmark bersarang
-📤 Ekspor bookmark sebagai HTML
-📊 Peningkatan daftar unduhan
-🪲 Berbagai peningkatan dan perbaikan bug

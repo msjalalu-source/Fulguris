@@ -1,3 +1,0 @@
-📥 Verbesserter Download-Dialog mit Dateityperkennung
-🪲 Absturz beim Start mit ungültigem Favicon behoben
-🚀 Startmenüpunkt für Lesezeichen, Verlauf und andere integrierte Seiten ausblenden

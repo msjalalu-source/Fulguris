@@ -1,3 +1,0 @@
-🖥️ JavaScript-Konsole hinzugefügt
-📊 Anfrageanzeige verbessert
-🐛 Verschiedene UI-Verbesserungen und Fehlerbehebungen

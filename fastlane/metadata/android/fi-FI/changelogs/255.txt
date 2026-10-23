@@ -1,3 +1,0 @@
-📥 Parannettu latausdialogi tiedostotyypin tunnistuksella
-🪲 Korjaus käynnistyksen kaatumiseen virheellisellä faviconilla
-🚀 Piilota käynnistysvalikkokohde kirjanmerkeille, historiaväli ja muut sisäänrakennetut sivut

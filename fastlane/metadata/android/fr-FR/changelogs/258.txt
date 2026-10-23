@@ -1,4 +1,0 @@
-📂 Prise en charge des dossiers de favoris imbriqués
-📤 Exporter les favoris au format HTML
-📊 Améliorations de la liste de téléchargements
-🪲 Diverses améliorations et corrections de bugs

@@ -1,2 +1,0 @@
-Rapide, personnalisable avec sessions, blocage pub et confidentialité
-

@@ -1,6 +1,0 @@
-🗺️ Uprawnienia lokalizacji według domeny
-🌐 Dodano wybór silnika sieciowego (OkHttp, HttpUrlConnection)
-🍪 Dodano element menu plików cookie i wyświetlanie licznika
-🚫 Element menu blokowania reklam pokazuje liczbę zablokowanych żądań
-📋 Wyświetlanie nazwy bieżącej sesji w menu
-🐛 Różne ulepszenia interfejsu użytkownika i poprawki błędów

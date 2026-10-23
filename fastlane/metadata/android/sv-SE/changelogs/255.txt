@@ -1,3 +1,0 @@
-📥 Förbättra nedladdningsdialog med filtypsdetektering
-🪲 Åtgärda krasch vid uppstart med ogiltig favicon
-🚀 Dölj startmenyobjekt för bokmärken, historikflik och andra inbyggda sidor

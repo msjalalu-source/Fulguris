@@ -1,6 +1,0 @@
-🗺️ Autorizzazioni posizione per dominio
-🌐 Aggiungi selezione motore di rete (OkHttp, HttpUrlConnection)
-🍪 Aggiungi voce menu cookie e visualizzazione conteggio
-🚫 La voce menu blocco annunci mostra il conteggio delle richieste bloccate
-📋 Visualizza il nome della sessione corrente nel menu
-🐛 Vari miglioramenti dell'interfaccia utente e correzioni di bug

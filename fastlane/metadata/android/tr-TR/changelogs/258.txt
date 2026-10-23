@@ -1,4 +1,0 @@
-📂 İç içe yer imi klasörleri desteği
-📤 Yer imlerini HTML olarak dışa aktarma
-📊 İndirme listesi iyileştirmeleri
-🪲 Çeşitli iyileştirmeler ve hata düzeltmeleri

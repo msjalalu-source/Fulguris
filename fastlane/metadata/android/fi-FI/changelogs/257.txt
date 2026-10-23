@@ -1,5 +1,0 @@
-📥 Progressiivinen latauslista
-📑 Istunnonhallinnan parannuksia
-⚙️ Vie istunnot järjestelmäasetusten kautta käynnistämättä sovellusta
-🕒 Paina takaisin-/eteenpäin-painikkeita pitkään nähdäksesi sivuhistorian
-🪲 Erilaisia parannuksia ja virhekorjauksia

@@ -1,5 +1,0 @@
-📥 Danh sách tải xuống dần dần
-📑 Cải tiến trình quản lý phiên
-⚙️ Xuất phiên thông qua cài đặt hệ thống mà không cần khởi động ứng dụng
-🕒 Nhấn giữ nút quay lại/tiến lên để xem lịch sử trang
-🪲 Nhiều cải tiến và sửa lỗi khác nhau

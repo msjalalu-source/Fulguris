@@ -1,4 +1,0 @@
-📂 Továbbfejlesztett megerősítő párbeszédablak az összes könyvjelző törléséhez
-🗺️ Hosszan nyomja meg a menü navigációs gombjait az oldaltörténet eléréséhez
-🧭 Az oldal címével és a menü navigációs gombjaival kapcsolatos problémák javítása a történetben való navigálás során
-🪲 Különféle fejlesztések és hibajavítások

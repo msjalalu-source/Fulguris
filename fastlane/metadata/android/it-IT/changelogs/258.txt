@@ -1,4 +1,0 @@
-📂 Supporto per cartelle di segnalibri nidificate
-📤 Esporta segnalibri come HTML
-📊 Miglioramenti dell'elenco download
-🪲 Vari miglioramenti e correzioni di bug
