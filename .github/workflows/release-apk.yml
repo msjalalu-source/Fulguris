@@ -1,0 +1,42 @@
+name: Build APK and Release
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Give permission to gradlew
+        run: chmod +x gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleSlionsFullFdroidDebug --no-daemon
+
+      - name: Collect APK
+        run: |
+          mkdir -p out
+          find app/build/outputs/apk -name "*.apk" -exec cp {} out/MuslimBrowserPro.apk \;
+          ls -la out
+
+      - name: Publish to Releases
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "build-${{ github.run_number }}" out/MuslimBrowserPro.apk \
+            --title "Muslim Browser Pro build ${{ github.run_number }}" \
+            --notes "Auto built APK"
