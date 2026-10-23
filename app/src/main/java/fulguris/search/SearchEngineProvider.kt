@@ -8,10 +8,8 @@ import fulguris.search.engine.BaseSearchEngine
 import fulguris.search.engine.CustomSearch
 import fulguris.search.engine.DuckSearch
 import fulguris.search.engine.GoogleSearch
-import fulguris.search.suggestions.BaiduSuggestionsModel
 import fulguris.search.suggestions.DuckSuggestionsModel
 import fulguris.search.suggestions.GoogleSuggestionsModel
-import fulguris.search.suggestions.NaverSuggestionsModel
 import fulguris.search.suggestions.NoOpSuggestionsRepository
 import fulguris.search.suggestions.RequestFactory
 import fulguris.search.suggestions.SuggestionsRepository
@@ -39,9 +37,7 @@ class SearchEngineProvider @Inject constructor(
             0 -> NoOpSuggestionsRepository()
             1 -> GoogleSuggestionsModel(okHttpClient, requestFactory, application, userPreferences)
             2 -> DuckSuggestionsModel(okHttpClient, requestFactory, application, userPreferences)
-            3 -> BaiduSuggestionsModel(okHttpClient, requestFactory, application, userPreferences)
-            4 -> NaverSuggestionsModel(okHttpClient, requestFactory, application, userPreferences)
-            else -> GoogleSuggestionsModel(okHttpClient, requestFactory, application, userPreferences)
+            else -> DuckSuggestionsModel(okHttpClient, requestFactory, application, userPreferences)
         }
 
     /**

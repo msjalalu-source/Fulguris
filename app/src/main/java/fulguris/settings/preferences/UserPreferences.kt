@@ -339,7 +339,7 @@ class UserPreferences @Inject constructor(
      *
      * @see SearchEngineProvider
      */
-    var searchSuggestionChoice by preferences.intPreference(SEARCH_SUGGESTIONS, 1)
+    var searchSuggestionChoice by preferences.intPreference(SEARCH_SUGGESTIONS, 2)
 
     /**
      * Tells if user has accepted our terms and conditions.

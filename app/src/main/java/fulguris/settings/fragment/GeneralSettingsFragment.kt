@@ -590,8 +590,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
             Suggestions.NONE -> getString(R.string.search_suggestions_off)
             Suggestions.GOOGLE -> getString(R.string.powered_by_google)
             Suggestions.DUCK -> getString(R.string.powered_by_duck)
-            Suggestions.NAVER -> getString(R.string.powered_by_naver)
-            Suggestions.BAIDU -> getString(R.string.powered_by_baidu)
         }
 
     private fun showSearchSuggestionsDialog(summaryUpdater: SummaryUpdater) : Boolean {
@@ -602,19 +600,15 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
                 val currentChoice = when (Suggestions.from(userPreferences.searchSuggestionChoice)) {
                     Suggestions.GOOGLE -> 0
                     Suggestions.DUCK -> 1
-                    Suggestions.BAIDU -> 2
-                    Suggestions.NAVER -> 3
-                    Suggestions.NONE -> 4
+                    Suggestions.NONE -> 2
                 }
 
                 setSingleChoiceItems(R.array.suggestions, currentChoice) { _, which ->
                     val suggestionsProvider = when (which) {
                         0 -> Suggestions.GOOGLE
                         1 -> Suggestions.DUCK
-                        2 -> Suggestions.BAIDU
-                        3 -> Suggestions.NAVER
-                        4 -> Suggestions.NONE
-                        else -> Suggestions.GOOGLE
+                        2 -> Suggestions.NONE
+                        else -> Suggestions.DUCK
                     }
                     userPreferences.searchSuggestionChoice = suggestionsProvider.index
                     summaryUpdater.updateSummary(searchSuggestionChoiceToTitle(suggestionsProvider))
