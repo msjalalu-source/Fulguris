@@ -31,8 +31,7 @@
          can corrupt the drawing order cache during cascading layout passes from tab
          animations, causing IndexOutOfBoundsException in dispatchTouchEvent
          (getChildDrawingOrder returns stale index >= childCount). This attribute is
-         also a no-op: the root CoordinatorLayout's direct children (DrawerLayout,
-         cursorOverlayHost) never change visibility or get added/removed, so
+         also a no-op: the root CoordinatorLayout's direct children (DrawerLayout) never change visibility or get added/removed, so
          LayoutTransition never fires. The actual toolbar/tab animations are handled
          by the nested LinearLayouts which have their own animateLayoutChanges="true". -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -217,28 +216,6 @@
 
         </androidx.drawerlayout.widget.DrawerLayout>
 
-        <!-- Android TV cursor overlay, controlled by fulguris.cursor.CursorController.
-             The CursorView is transparent and non-focusable and spans the WHOLE activity (toolbar
-             AND web view, even over the drawers) so the cursor can be used over the toolbar as
-             well as the page. It lives in a plain FrameLayout host (match_parent, the last/top
-             child of the root CoordinatorLayout) rather than directly in the CoordinatorLayout:
-             on some devices/Android versions removing a direct CoordinatorLayout child can leave
-             the child's parent reference stale, making a later re-parent (fullscreen) throw
-             "already has a parent"; a plain FrameLayout parent repars reliably. While an HTML5
-             video is fullscreen the activity re-parents the CursorView into the fullscreen
-             container (which sits on the decor view, above this one) instead. -->
-        <FrameLayout
-            android:id="@+id/cursorOverlayHost"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <fulguris.cursor.CursorView
-                android:id="@+id/cursorOverlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:visibility="gone" />
-        </FrameLayout>
 
 
 

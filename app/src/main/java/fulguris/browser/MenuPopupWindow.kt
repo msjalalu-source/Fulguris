@@ -291,7 +291,6 @@ class MenuPopupWindow : PopupWindow {
         iBinding.menuItemForceReload.isVisible = false
         iBinding.menuItemLaunchApp.isVisible = false
         iBinding.menuItemPip.isVisible = false
-        iBinding.menuItemCursor.isVisible = false
         iBinding.menuItemFullMenu.isVisible = false
     }
 
@@ -334,7 +333,6 @@ class MenuPopupWindow : PopupWindow {
             MenuItemId.ForceReload -> iBinding.menuItemForceReload.isVisible = true
             MenuItemId.LaunchApp -> iBinding.menuItemLaunchApp.isVisible = true
             MenuItemId.Pip -> iBinding.menuItemPip.isVisible = true
-            MenuItemId.Cursor -> iBinding.menuItemCursor.isVisible = true
             MenuItemId.FullMenu -> iBinding.menuItemFullMenu.isVisible = true
         }
     }
@@ -396,7 +394,6 @@ class MenuPopupWindow : PopupWindow {
                 iBinding.menuItemForceReload.isVisible = false
                 iBinding.menuItemLaunchApp.isVisible = false
                 iBinding.menuItemPip.isVisible = false
-                iBinding.menuItemCursor.isVisible = false
             } else {
                 val isSpecialUrl = tab.url.isSpecialUrl() || tab.url.isAppScheme()
 
@@ -428,12 +425,6 @@ class MenuPopupWindow : PopupWindow {
                 // Hide PiP on devices that don't support it (requires API 26)
                 if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
                     iBinding.menuItemPip.isVisible = false
-                }
-
-                // The cursor only makes sense on Android TV or when a gamepad / joystick / D-pad
-                // device is connected. Availability is queried live from the activity.
-                if (!(contentView.context as WebBrowserActivity).isCursorAvailable()) {
-                    iBinding.menuItemCursor.isVisible = false
                 }
             }
         }
@@ -578,9 +569,6 @@ class MenuPopupWindow : PopupWindow {
             iBinding.menuItemAdBlock.isChecked = it.currentTab?.url?.let { url ->
                 !abpUserRules.isAllowed(Uri.parse(url))
             } ?: false
-
-            // Reflect current cursor state (on / off)
-            iBinding.menuItemCursor.isChecked = (contentView.context as? WebBrowserActivity)?.isCursorOn() ?: false
 
             // Update Sessions menu item with current session name
             val sessionName = (contentView.context as? WebBrowserActivity)?.sessionsManager?.currentSessionName() ?: ""

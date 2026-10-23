@@ -59,6 +59,5 @@ enum class MenuItemId {
     ForceReload,
     Pip,
     LaunchApp,
-    Cursor,
     FullMenu,
 }

@@ -50,36 +50,6 @@ class UserPreferences @Inject constructor(
     var webRtcEnabled by preferences.booleanPreference(R.string.pref_key_webrtc, R.bool.pref_default_webrtc)
 
     /**
-     * True if long-pressing the media play/pause button toggles the Android TV cursor.
-     * The cursor menu item works regardless of this; it only gates the hardware shortcut.
-     */
-    var cursorHotkeyEnabled by preferences.booleanPreference(R.string.pref_key_cursor_hotkey, R.bool.pref_default_cursor_hotkey)
-
-    /**
-     * Android TV cursor speed, 0..100 (percent). 0 is allowed in the settings but the cursor
-     * controller treats it as 1 (the slowest usable speed). Stored as a float to match the
-     * [x.SliderPreference] which persists floats.
-     */
-    var cursorSpeed by preferences.safeFloatPreference(R.string.pref_key_cursor_speed, 30F)
-
-    /**
-     * Android TV cursor acceleration, 0..100 (percent).
-     */
-    var cursorAcceleration by preferences.safeFloatPreference(R.string.pref_key_cursor_acceleration, 30F)
-
-    /**
-     * Seconds of cursor inactivity after which the Android TV cursor fades out. 0 = never.
-     */
-    var cursorFadeTimeoutSec by preferences.safeFloatPreference(R.string.pref_key_cursor_fade_timeout, 3F)
-
-    /**
-     * Seconds the action key (select) must be held to open the context menu while the Android TV
-     * cursor is on, 0.5..1.0. Deliberately well past the ~400 ms system long-press flag, so a
-     * hesitant "short click" never opens the menu.
-     */
-    var cursorActionHoldSec by preferences.safeFloatPreference(R.string.pref_key_cursor_action_hold, 1F)
-
-    /**
      * True if the browser should block ads, false otherwise.
      */
     var adBlockEnabled by preferences.booleanPreference(BLOCK_ADS, false)
