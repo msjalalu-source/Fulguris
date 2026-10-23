@@ -544,7 +544,7 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
 
                 val chars = convertSearchEngineToString(searchEngineList)
 
-                val n = userPreferences.searchChoice
+                val n = searchEngineList.indexOfFirst { e -> searchEngineProvider.mapSearchEngineToPreferenceIndex(e) == userPreferences.searchChoice }.coerceAtLeast(0)
 
                 setSingleChoiceItems(chars, n) { _, which ->
                     val searchEngine = searchEngineList[which]

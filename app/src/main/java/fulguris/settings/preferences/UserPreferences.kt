@@ -177,7 +177,7 @@ class UserPreferences @Inject constructor(
      *
      * @see SearchEngineProvider
      */
-    var searchChoice by preferences.intPreference(SEARCH, 1)
+    var searchChoice by preferences.intPreference(SEARCH, 6)
 
     /**
      * The custom URL which should be used for making searches.
