@@ -22,7 +22,7 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="app_name">Muslim Browser Pro</string>
+    <string name="app_name">Muslim Browser</string>
     <string name="url_app_home_page">http://fulguris.slions.net</string>
     <string name="url_privacy_policy">https://slions.net/threads/fulguris-privacy-policy.99/</string>
     <string name="url_terms_and_conditions">https://slions.net/threads/fulguris-terms-conditions.100/</string>

@@ -127,7 +127,7 @@ android {
         slions {
             dimension "BRAND"
             isDefault = true
-            applicationId "com.muslim.browser.pro"
+            applicationId "com.muslim.browser"
             versionCode libs.versions.slions.version.code.get().toInteger()
             versionName libs.versions.slions.version.name.get()
         }

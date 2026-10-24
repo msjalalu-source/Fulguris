@@ -30,13 +30,13 @@ jobs:
       - name: Collect APK
         run: |
           mkdir -p out
-          find app/build/outputs/apk -name "*.apk" -exec cp {} out/MuslimBrowserPro.apk \;
+          find app/build/outputs/apk -name "*.apk" -exec cp {} out/MuslimBrowser.apk \;
           ls -la out
 
       - name: Publish to Releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "build-${{ github.run_number }}" out/MuslimBrowserPro.apk \
-            --title "Muslim Browser Pro build ${{ github.run_number }}" \
+          gh release create "build-${{ github.run_number }}" out/MuslimBrowser.apk \
+            --title "Muslim Browser build ${{ github.run_number }}" \
             --notes "Auto built APK"
