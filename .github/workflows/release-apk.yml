@@ -1,4 +1,4 @@
-name: Build APK and Release
+name: Build Debug and Signed Release APKs
 
 on:
   push:
@@ -18,25 +18,54 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Give permission to gradlew
         run: chmod +x gradlew
 
-      - name: Build APK
-        run: ./gradlew assembleSlionsFullFdroidDebug --no-daemon
-
-      - name: Collect APK
+      - name: Prepare release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
+          test -n "$KEYSTORE_BASE64"
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release-key.p12"
+          chmod 600 "$RUNNER_TEMP/release-key.p12"
+          test -s "$RUNNER_TEMP/release-key.p12"
+
+      - name: Build Debug and signed Release APKs
+        env:
+          KEYSTORE_PATH: ${{ runner.temp }}/release-key.p12
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          test -n "$KEYSTORE_PASSWORD"
+          test -n "$KEY_ALIAS"
+          test -n "$KEY_PASSWORD"
+          ./gradlew assembleSlionsFullFdroidDebug assembleSlionsFullFdroidRelease --no-daemon
+
+      - name: Collect APKs
+        shell: bash
+        run: |
+          set -euo pipefail
           mkdir -p out
-          find app/build/outputs/apk -name "*.apk" -exec cp {} out/MuslimBrowser.apk \;
-          ls -la out
+          DEBUG_APK="$(find app/build/outputs/apk -type f -name '*.apk' | grep '/debug/' | head -n 1)"
+          RELEASE_APK="$(find app/build/outputs/apk -type f -name '*.apk' | grep '/release/' | head -n 1)"
+          test -n "$DEBUG_APK"
+          test -n "$RELEASE_APK"
+          cp "$DEBUG_APK" out/MuslimBrowser-Debug.apk
+          cp "$RELEASE_APK" out/MuslimBrowser-Release.apk
+          ls -lh out
+
+      - name: Verify Release APK signature
+        run: |
+          SDK_APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          test -x "$SDK_APKSIGNER"
+          "$SDK_APKSIGNER" verify --verbose out/MuslimBrowser-Release.apk
 
       - name: Publish to Releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "build-${{ github.run_number }}" out/MuslimBrowser.apk \
-            --title "Muslim Browser build ${{ github.run_number }}" \
-            --notes "Auto built APK"
+          gh release create "build-${{ github.run_number }}"             out/MuslimBrowser-Debug.apk out/MuslimBrowser-Release.apk             --title "Muslim Browser build ${{ github.run_number }}"             --notes "Debug APK and signed Release APK"

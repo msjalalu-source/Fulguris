@@ -71,7 +71,22 @@ android {
         }
     }
 
-    buildTypes {
+    if (System.getenv("KEYSTORE_PATH")) {
+    signingConfigs {
+        release {
+            if (System.getenv("KEYSTORE_PATH")) {
+                signingConfig signingConfigs.release
+            }
+            storeFile file(System.getenv("KEYSTORE_PATH"))
+            storeType "PKCS12"
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+}
+
+buildTypes {
         debug {
             debuggable = true
             // See: https://github.com/Slion/Fulguris/issues/116
