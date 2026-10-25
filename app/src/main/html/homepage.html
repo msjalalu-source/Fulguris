@@ -1,256 +1,300 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta content="en-us" http-equiv="Content-Language" />
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>${TITLE}</title>
-<style>
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body { margin: 0; background: ${backgroundColor}; color: ${searchBarTextColor}; font-family: sans-serif; }
-.wrap { max-width: 520px; margin: 0 auto; padding: 34px 18px 40px 18px; }
-.head { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 34px; }
-.logo { width: 48px; height: 48px; border-radius: 50%; background: ${searchBarColor}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.title { font-size: 21px; font-weight: 800; letter-spacing: 1px; text-align: left; }
-.sub { font-size: 12px; opacity: 0.7; text-align: left; margin-top: 4px; }
-.sbar { position: relative; display: flex; align-items: center; height: 56px; padding: 0 16px 0 12px; background: ${searchBarColor}; border: 1px solid ${borderColor}; border-radius: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.eng { display: flex; align-items: center; gap: 4px; padding: 6px 6px 6px 0; cursor: pointer; }
-#image_url { width: 32px; height: 32px; border-radius: 50%; display: block; }
-.caret { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid ${searchBarTextColor}; opacity: 0.6; }
-#search_input { flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: transparent; color: ${searchBarTextColor}; font-size: 17px; padding: 0 8px 0 8px; }
-.menu { display: none; position: absolute; top: 62px; left: 0; min-width: 210px; background: ${backgroundColor}; border: 1px solid ${borderColor}; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.25); z-index: 5; overflow: hidden; }
-.menu div { display: flex; align-items: center; gap: 12px; padding: 12px 16px; font-size: 16px; cursor: pointer; }
-.menu img { width: 26px; height: 26px; border-radius: 50%; }
-.menu .on { color: ${accent}; font-weight: 700; }
-.favhead { display: flex; align-items: center; justify-content: space-between; margin: 36px 4px 16px 4px; }
-.favtitle { font-size: 13px; font-weight: 700; letter-spacing: 2px; opacity: 0.7; }
-.editbtn { font-size: 14px; font-weight: 700; color: ${accent}; cursor: pointer; padding: 4px 8px; }
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 6px; }
-.fav { position: relative; text-align: center; text-decoration: none; color: ${searchBarTextColor}; display: block; }
-.ico { width: 64px; height: 64px; margin: 0 auto 8px auto; border-radius: 18px; background: ${searchBarColor}; border: 1px solid ${borderColor}; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 22px; font-weight: 700; }
-.ico img { width: 36px; height: 36px; border-radius: 8px; }
-.name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 2px; }
-.del { display: none; position: absolute; top: -6px; right: 4px; width: 22px; height: 22px; border-radius: 50%; background: #d32f2f; color: #ffffff; font-size: 15px; line-height: 22px; text-align: center; }
-.editing .del { display: block; }
-.add .ico { color: ${accent}; font-size: 34px; font-weight: 400; border: 2px solid ${accent}; }
-.add .name { color: ${accent}; }
-.modal { display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10; align-items: center; justify-content: center; }
-.box { width: 86%; max-width: 380px; background: ${backgroundColor}; color: ${searchBarTextColor}; border-radius: 16px; padding: 20px; }
-.box h3 { margin: 0 0 14px 0; font-size: 18px; }
-.box input { width: 100%; height: 44px; margin-bottom: 12px; padding: 0 12px; font-size: 16px; color: ${searchBarTextColor}; background: ${searchBarColor}; border: 1px solid ${borderColor}; border-radius: 10px; outline: none; }
-.btns { display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px; }
-.btn { padding: 10px 18px; font-size: 15px; font-weight: 700; border-radius: 10px; cursor: pointer; color: ${searchBarTextColor}; }
-.btn.ok { background: ${accent}; color: ${backgroundColor}; }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="head">
-    <div class="logo">
-      <svg width="26" height="26" viewBox="0 0 24 24"><path fill="${accent}" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-    </div>
-    <div>
-      <div class="title">MUSLIM BROWSER</div>
-      <div class="sub">Ultra-Lightweight • Protected Browser</div>
-    </div>
-  </div>
-
-  <form id="sform" class="sbar" autocomplete="off">
-    <div class="eng" id="engbtn"><img id="image_url" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><span class="caret"></span></div>
-    <div class="menu" id="engmenu"></div>
-    <input type="text" id="search_input" placeholder="${search}" />
-  </form>
-
-  <div class="favhead">
-    <div class="favtitle">FAVOURITE WEBSITES</div>
-    <div class="editbtn" id="editbtn">Edit</div>
-  </div>
-  <div class="grid" id="grid"></div>
-</div>
-
-<div class="modal" id="modal">
-  <div class="box">
-    <h3>Add favourite</h3>
-    <input type="text" id="fname" placeholder="Name" />
-    <input type="text" id="furl" placeholder="Website address" />
-    <div class="btns">
-      <div class="btn" id="fcancel">Cancel</div>
-      <div class="btn ok" id="fsave">Save</div>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript">
-var AMP = String.fromCharCode(38);
-var ENGINES = [
-  { name: 'DuckDuckGo', icon: 'file:///android_asset/duckduckgo.webp', url: 'https://duckduckgo.com/?t=fulguris' + AMP + 'q=' },
-  { name: 'Google', icon: 'file:///android_asset/google.webp', url: 'https://www.google.com/search?client=fulguris' + AMP + 'q=' }
-];
-var DEFAULT_FAVS = [
-  { name: 'Google AI Studio', url: 'https://aistudio.google.com' },
-  { name: 'GitHub', url: 'https://github.com' },
-  { name: 'Moldova1', url: 'https://www.moldova1.md' },
-  { name: 'Prothom Alo', url: 'https://www.prothomalo.com' },
-  { name: 'The Daily Star', url: 'https://www.thedailystar.net' },
-  { name: 'Ittefaq', url: 'https://www.ittefaq.com.bd' }
-];
-var editing = false;
-
-function getStore(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
-function setStore(key, value) { try { localStorage.setItem(key, value); } catch (e) { } }
-function $(id) { return document.getElementById(id); }
-
-function getEngineIndex() {
-  var i = parseInt(getStore('mbp_engine'));
-  if (isNaN(i) || i < 0 || i >= ENGINES.length) { return 0; }
-  return i;
-}
-function setEngine(i) {
-  setStore('mbp_engine', String(i));
-  $('image_url').src = ENGINES[i].icon;
-  $('engmenu').style.display = 'none';
-  buildMenu();
-}
-function buildMenu() {
-  var menu = $('engmenu');
-  menu.textContent = '';
-  var current = getEngineIndex();
-  ENGINES.forEach(function (eng, i) {
-    var row = document.createElement('div');
-    if (i === current) { row.className = 'on'; }
-    var img = document.createElement('img');
-    img.src = eng.icon;
-    var label = document.createElement('span');
-    label.textContent = eng.name;
-    row.appendChild(img);
-    row.appendChild(label);
-    row.onclick = function (e) { e.stopPropagation(); setEngine(i); };
-    menu.appendChild(row);
-  });
-}
-
-function looksLikeUrl(v) {
-  if (v.indexOf(' ') >= 0) { return false; }
-  if (v.indexOf('http://') === 0) { return true; }
-  if (v.indexOf('https://') === 0) { return true; }
-  if (v.indexOf('www.') === 0) { return true; }
-  return v.indexOf('.') > 0 ? v.length > 3 : false;
-}
-function doSearch() {
-  var v = $('search_input').value.trim();
-  if (v === '') { return false; }
-  $('search_input').value = '';
-  if (looksLikeUrl(v)) {
-    window.location.href = (v.indexOf('http') === 0) ? v : 'https://' + v;
-  } else {
-    window.location.href = ENGINES[getEngineIndex()].url + encodeURIComponent(v);
-  }
-  return false;
-}
-
-function getFavs() {
-  try {
-    var saved = JSON.parse(getStore('mbp_favs'));
-    if (Array.isArray(saved)) { return saved; }
-  } catch (e) { }
-  return DEFAULT_FAVS.slice();
-}
-function saveFavs(list) { setStore('mbp_favs', JSON.stringify(list)); }
-function hostOf(url) {
-  var a = document.createElement('a');
-  a.href = url;
-  return a.hostname;
-}
-function makeIcon(fav) {
-  var ico = document.createElement('div');
-  ico.className = 'ico';
-  var letters = fav.name.trim().substring(0, 1).toUpperCase();
-  ico.textContent = letters;
-  var host = hostOf(fav.url);
-  if (host !== '') {
-    var img = new Image();
-    img.onload = function () { ico.textContent = ''; ico.appendChild(img); };
-    img.src = 'https://icons.duckduckgo.com/ip3/' + host + '.ico';
-  }
-  return ico;
-}
-function renderFavs() {
-  var grid = $('grid');
-  grid.textContent = '';
-  grid.className = editing ? 'grid editing' : 'grid';
-  var list = getFavs();
-  list.forEach(function (fav, i) {
-    var a = document.createElement('a');
-    a.className = 'fav';
-    a.href = editing ? '#' : fav.url;
-    a.appendChild(makeIcon(fav));
-    var name = document.createElement('div');
-    name.className = 'name';
-    name.textContent = fav.name;
-    a.appendChild(name);
-    var del = document.createElement('div');
-    del.className = 'del';
-    del.textContent = 'x';
-    a.appendChild(del);
-    a.onclick = function (e) {
-      if (editing) {
-        e.preventDefault();
-        list.splice(i, 1);
-        saveFavs(list);
-        renderFavs();
-      }
-    };
-    grid.appendChild(a);
-  });
-  var add = document.createElement('a');
-  add.className = 'fav add';
-  add.href = '#';
-  var plus = document.createElement('div');
-  plus.className = 'ico';
-  plus.textContent = '+';
-  var addName = document.createElement('div');
-  addName.className = 'name';
-  addName.textContent = 'Add';
-  add.appendChild(plus);
-  add.appendChild(addName);
-  add.onclick = function (e) { e.preventDefault(); openModal(); };
-  grid.appendChild(add);
-  $('editbtn').textContent = editing ? 'Done' : 'Edit';
-}
-
-function openModal() {
-  $('fname').value = '';
-  $('furl').value = '';
-  $('modal').style.display = 'flex';
-}
-function closeModal() { $('modal').style.display = 'none'; }
-function saveModal() {
-  var url = $('furl').value.trim();
-  if (url === '') { return; }
-  if (url.indexOf('http') !== 0) { url = 'https://' + url; }
-  var name = $('fname').value.trim();
-  if (name === '') { name = hostOf(url).replace('www.', ''); }
-  var list = getFavs();
-  list.push({ name: name, url: url });
-  saveFavs(list);
-  closeModal();
-  renderFavs();
-}
-
-$('sform').onsubmit = doSearch;
-$('engbtn').onclick = function (e) {
-  e.stopPropagation();
-  var m = $('engmenu');
-  m.style.display = (m.style.display === 'block') ? 'none' : 'block';
-};
-document.body.onclick = function () { $('engmenu').style.display = 'none'; };
-$('editbtn').onclick = function () { editing = !editing; renderFavs(); };
-$('fcancel').onclick = closeModal;
-$('fsave').onclick = saveModal;
-
-$('image_url').src = ENGINES[getEngineIndex()].icon;
-buildMenu();
-renderFavs();
-</script>
-</body>
-</html>
+    <head>
+        <meta content="en-us" http-equiv="Content-Language" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>${TITLE}</title>
+    </head>
+    <style>
+        body {
+        background: ${backgroundColor};
+        text-align: center;
+        margin: 0px;
+        }
+        * {
+        box-sizing: border-box;
+        }
+        /* Style the search field */
+        form.example input[type=text] {
+        padding: 10px;
+        font-size: 17px;
+        border: 1px solid ${borderColor};
+        float: left;
+        width: 83%;
+        -moz-box-shadow: 0 0 1px ${borderColor};
+        -webkit-box-shadow: 0 0 1px ${borderColor};
+        box-shadow: 0 0 1px ${borderColor};
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 45px;
+        }
+        /* Style the submit button */
+        form.example button {
+        position: relative;
+        width: 15%;
+        padding: 9px;
+        background: ${accent};
+        color: ${backgroundColor};
+        -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
+        cursor: pointer;
+        border: 1px solid ${borderColor};
+        -moz-box-shadow: 0 0 1px ${borderColor};
+        -webkit-box-shadow: 0 0 1px ${borderColor};
+        box-shadow: 0 0 1px ${borderColor};
+        outline: none;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        }
+        form.example button:after {
+        content: "";
+        background: #000000;
+        display: block;
+        position: absolute;
+        padding-top: 300%;
+        padding-left: 350%;
+        margin-left: -120px!important;
+        margin-top: -120%;
+        opacity: 0;
+        transition: 0.8s;
+        }
+        form.example button:active:after {
+        padding: 0;
+        margin: 0;
+        opacity: 1;
+        transition: 0s
+        }
+        /* Clear floats */
+        form.example::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+        img.smaller {
+        width: 50%;
+        max-width: 300px;
+        margin-top: 20px;
+        }
+        .outer {
+        display: table;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        }
+        .middle {
+        display: table-cell;
+        vertical-align: middle;
+        }
+        .inner {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10%;
+        width: 100%;
+        }
+        #search_input {
+        color: ${searchBarTextColor};
+        background-color: ${backgroundColor};
+        padding-left: 17px;
+        }
+        .search_bar {
+        display: table;
+        vertical-align: middle;
+        width: 90%;
+        height: 35px;
+        max-width: 500px;
+        margin: 0 auto;
+        }
+        .text{
+        font-weight: 300;
+        margin-top: 0;
+        }
+        .shortcuts{
+        max-width: 500px;
+        height:auto;
+        vertical-align: middle;
+        position: relative; 
+        left: 50%;
+        transform: translateX(-50%);
+        margin-right: 50px !important;
+        bottom: 10px;
+        }
+        .button-material {
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 4px;
+        padding: 0 16px;
+        min-width: 64px;
+        height: 36px;
+        vertical-align: middle;
+        text-align: center;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        color: ${searchBarTextColor};
+        background-color: ${backgroundColor};
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 36px;
+        overflow: hidden;
+        outline: none;
+        cursor: pointer;
+        transition: box-shadow 0.2s;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        }
+        .button-materials {
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 4px;
+        padding: 0 16px;
+        min-width: 64px;
+        height: 36px;
+        vertical-align: middle;
+        text-align: center;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        color: ${accent};
+        background-color: ${backgroundColor};
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 36px;
+        overflow: hidden;
+        outline: none;
+        cursor: pointer;
+        transition: box-shadow 0.2s;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        }
+        h2 {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        }
+        .link {
+        height: 35px;
+        width: 35px;
+        background-color: ${searchBarColor};
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 15px;
+        margin-right: 15px;
+        }
+        .link-text {
+        display: inline-block;
+        }
+        .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1;
+        padding-top: 5vh; 
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgb(0,0,0); 
+        background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+        background-color: ${backgroundColor};
+        color: ${searchBarTextColor};
+        margin: auto;
+        padding: 20px;
+        width: 80%;
+        border-radius: 8px;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        }
+        input {
+        background-color: ${backgroundColor};
+        color: ${searchBarTextColor};
+        border: 0.5px solid ${searchBarTextColor};
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 4px;
+        }
+        input:focus{
+        outline: none;
+        }
+        img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        -webkit-tap-highlight-color: transparent;
+        }
+        a {
+        -webkit-tap-highlight-color: transparent;
+        }
+        .column {
+        display: block;
+        flex-basis: 0;
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding: .75rem;
+        }
+        .edit {
+        border: none;
+        outline: none;
+        }
+        #search_submit {
+        outline: none;
+        height: 45px;
+        }
+    </style>
+    <body>
+        <div class="outer">
+            <div class="middle">
+                <div class="inner">
+                    <img id="image_url" class="smaller" src="${IMAGE}">
+                    </br>
+                    </br>
+                    <form onsubmit="return search()" class="search_bar example" autocomplete="off">
+                        <button type="submit" id="search_submit">
+                            <svg height="24px" viewBox="0 0 24 24" width="24px" fill="${backgroundColor}">
+                                <path d="M0 0h24v24H0V0z" fill="none"/>
+                                <path d="M15.5 14h-.79l-.28-.27c1.2-1.4 1.82-3.31 1.48-5.34-.47-2.78-2.79-5-5.59-5.34-4.23-.52-7.79 3.04-7.27 7.27.34 2.8 2.56 5.12 5.34 5.59 2.03.34 3.94-.28 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                        </button>
+                        <span>
+                        <input class="search" type="text" id="search_input" placeholder="${search}"/>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <script type="text/javascript">
+            function search() {
+                if (document.getElementById("search_input").value != "") {
+                    window.location.href = "${BASE_URL}" + document.getElementById("search_input").value;
+                    document.getElementById("search_input").value = "";
+                }
+                return false;
+            }
+        </script>
+    </body>

@@ -142,7 +142,7 @@ class UserPreferences @Inject constructor(
     /**
      * The URL of the selected homepage.
      */
-    var homepage by preferences.stringPreference(HOMEPAGE, Uris.AboutHome)
+    var homepage by preferences.stringPreference(HOMEPAGE, Uris.AboutBookmarks)
 
     /**
      * The URL of the selected incognito page.
