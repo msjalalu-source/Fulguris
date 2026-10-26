@@ -13,6 +13,6 @@ import fulguris.R
  */
 class DuckSearch : BaseSearchEngine(
     "file:///android_asset/duckduckgo.webp",
-    "https://duckduckgo.com/?t=fulguris&q=",
+    "https://safe.duckduckgo.com/?t=fulguris&q=",
     R.string.search_engine_duckduckgo
 )

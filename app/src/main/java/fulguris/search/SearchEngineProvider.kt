@@ -7,7 +7,6 @@ import dagger.Reusable
 import fulguris.search.engine.BaseSearchEngine
 import fulguris.search.engine.CustomSearch
 import fulguris.search.engine.DuckSearch
-import fulguris.search.engine.GoogleSearch
 import fulguris.search.suggestions.DuckSuggestionsModel
 import fulguris.search.suggestions.GoogleSuggestionsModel
 import fulguris.search.suggestions.NoOpSuggestionsRepository
@@ -46,8 +45,6 @@ class SearchEngineProvider @Inject constructor(
      */
     fun provideSearchEngine(): BaseSearchEngine =
         when (userPreferences.searchChoice) {
-            0 -> CustomSearch(userPreferences.searchUrl, userPreferences)
-            1 -> GoogleSearch()
             6 -> DuckSearch()
             else -> DuckSearch()
         }
@@ -58,7 +55,6 @@ class SearchEngineProvider @Inject constructor(
     fun mapSearchEngineToPreferenceIndex(searchEngine: BaseSearchEngine): Int =
         when (searchEngine) {
             is CustomSearch -> 0
-            is GoogleSearch -> 1
             is DuckSearch -> 6
             else -> throw UnsupportedOperationException("Unknown search engine provided: " + searchEngine.javaClass)
         }
@@ -67,8 +63,7 @@ class SearchEngineProvider @Inject constructor(
      * Provide a list of all supported search engines.
      */
     fun provideAllSearchEngines(): List<BaseSearchEngine> = listOf(
-        DuckSearch(),
-        GoogleSearch()
+        DuckSearch()
     )
 
 }

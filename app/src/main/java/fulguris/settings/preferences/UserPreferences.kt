@@ -10,7 +10,7 @@ import fulguris.constant.Uris
 import fulguris.device.ScreenSize
 import fulguris.di.UserPrefs
 import fulguris.search.SearchEngineProvider
-import fulguris.search.engine.GoogleSearch
+import fulguris.search.engine.DuckSearch
 import fulguris.settings.NewTabPosition
 import fulguris.utils.FileUtils
 import fulguris.view.RenderingMode
@@ -182,7 +182,7 @@ class UserPreferences @Inject constructor(
     /**
      * The custom URL which should be used for making searches.
      */
-    var searchUrl by preferences.stringPreference(SEARCH_URL, GoogleSearch().queryUrl)
+    var searchUrl by preferences.stringPreference(SEARCH_URL, DuckSearch().queryUrl)
 
     /**
      * True if the browser should attempt to reflow the text on a web page after zooming in or out

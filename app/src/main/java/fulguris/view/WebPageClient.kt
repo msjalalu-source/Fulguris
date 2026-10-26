@@ -474,6 +474,13 @@ class WebPageClient(
     override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
         Timber.i("$ihs : onPageStarted - $url")
 
+        // Safe search lock: send any other search engine to safe.duckduckgo.com
+        fulguris.utils.SafeSearch.redirectFor(url)?.let { safeUrl ->
+            view.stopLoading()
+            view.loadUrl(safeUrl)
+            return
+        }
+
         // Reset the flag to allow onPageFinished to execute for this new page
         // This is critical for history navigation (back/forward) which may load from cache
         // and not trigger shouldInterceptRequest for the main frame

@@ -234,7 +234,7 @@
     <string name="license_apache">Apache License 2.0</string>
 
     <!-- Search Engines -->
-    <string name="search_engine_duckduckgo">DuckDuckGo</string>
+    <string name="search_engine_duckduckgo">DuckDuckGo Safe</string>
     <string name="search_engine_google">Google</string>
 
     <!-- Universal technical terms -->
