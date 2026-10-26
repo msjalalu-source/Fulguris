@@ -75,7 +75,6 @@ android {
     signingConfigs {
         release {
             if (System.getenv("KEYSTORE_PATH")) {
-                signingConfig signingConfigs.release
             }
             storeFile file(System.getenv("KEYSTORE_PATH"))
             storeType "PKCS12"
@@ -88,6 +87,7 @@ android {
 
 buildTypes {
         debug {
+            signingConfig signingConfigs.release
             debuggable = true
             // See: https://github.com/Slion/Fulguris/issues/116
             // If we disable minify then we need multi DEX.
@@ -102,6 +102,7 @@ buildTypes {
         }
 
         release {
+            signingConfig signingConfigs.release
             debuggable = false
             multiDexEnabled = true // Required for core library desugaring
             // If you disable minify you need to make sure multi DEX library is loaded in release or you will get crashed on Android 5 devices and below
