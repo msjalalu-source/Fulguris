@@ -67,21 +67,6 @@
         x:singleLineTitle="false"
         />
 
-    <Preference
-        x:fragment="fulguris.settings.fragment.SponsorshipSettingsFragment"
-        x:title="@string/settings_contribute"
-        x:summary="@string/pref_summary_contribute"
-        x:icon="@drawable/ic_giftcard"
-        x:singleLineTitle="false"
-        />
 
-    <!-- About is traditionally last -->
-    <Preference
-        x:fragment="fulguris.settings.fragment.AboutSettingsFragment"
-        x:title="@string/settings_about"
-        x:summary="@string/pref_summary_about"
-        x:icon="@drawable/ic_info"
-        x:singleLineTitle="false"
-        />
 
 </PreferenceScreen>

@@ -114,7 +114,6 @@ import fulguris.settings.fragment.BottomSheetDialogFragment
 import fulguris.settings.fragment.DisplaySettingsFragment.Companion.MAX_BROWSER_TEXT_SIZE
 import fulguris.settings.fragment.DisplaySettingsFragment.Companion.MIN_BROWSER_TEXT_SIZE
 import fulguris.settings.fragment.OptionsSettingsFragment
-import fulguris.settings.fragment.SponsorshipSettingsFragment
 import fulguris.settings.preferences.ConfigurationCustomPreferences
 import fulguris.ssl.SslState
 import fulguris.ssl.createSslDrawableForState
@@ -5084,14 +5083,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         // It provides a link to our settings Contribute section.
         makeSnackbar(
                 getString(R.string.max_tabs), 10000, if (configPrefs.toolbarsBottom) Gravity.TOP else Gravity.BOTTOM) //Snackbar.LENGTH_LONG
-                .setAction(R.string.show, OnClickListener {
-                    // We want to launch our settings activity
-                    val i = Intent(this, SettingsActivity::class.java)
-                    /** See [SettingsActivity.onResume] for details of how this is handled on the other side */
-                    // Tell our settings activity to load our Contribute/Sponsorship fragment
-                    i.putExtra(FRAGMENT_CLASS_NAME, SponsorshipSettingsFragment::class.java.name)
-                    startActivity(i)
-                }).show()
+                .show()
     }
 
     /**
