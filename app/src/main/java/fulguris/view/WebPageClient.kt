@@ -184,14 +184,14 @@ class WebPageClient(
         if (webPageTab.desktopMode) {
             // Do not hack anything when desktop width is set to 100%
             // In this case desktop mode then only overrides the user agent which is all you should need in most cases really
-            if (aView.context.configPrefs.desktopWidth != 100F) {
+            if (userPreferences.desktopWidth != 100F) {
                 // That's needed for custom desktop mode support
                 // See: https://stackoverflow.com/a/60621350/3969362
                 // See: https://stackoverflow.com/a/39642318/3969362
                 // Just pass on user defined viewport width in percentage of the actual viewport to the JavaScript
                 aView.settings.useWideViewPort = true
                 Timber.w("evaluateJavascript: desktop mode")
-                aView.evaluateJavascript(setMetaViewport.provideJs().replaceFirst("\$width\$", "${aView.context.configPrefs.desktopWidth}"), null)
+                aView.evaluateJavascript(setMetaViewport.provideJs().replaceFirst("\$width\$", "${userPreferences.desktopWidth}"), null)
             }
         }
     }

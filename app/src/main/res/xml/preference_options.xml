@@ -21,32 +21,8 @@
             a:singleLineTitle="false"
             />
 
-        <Preference
-            a:key="@string/pref_key_portrait"
-            a:fragment="fulguris.settings.fragment.PortraitSettingsFragment"
-            a:title="@string/pref_title_configuration"
-            a:summary="@string/pref_title_portrait"
-            a:icon="@drawable/ic_phone"
-            a:singleLineTitle="false"
-            />
 
-        <Preference
-            a:key="@string/pref_key_landscape"
-            a:fragment="fulguris.settings.fragment.LandscapeSettingsFragment"
-            a:title="@string/pref_title_configuration"
-            a:summary="@string/pref_title_landscape"
-            a:icon="@drawable/ic_landscape"
-            a:singleLineTitle="false"
-            />
 
-        <Preference
-            a:key="@string/pref_key_configuration_custom"
-            a:fragment="fulguris.settings.fragment.ConfigurationCustomSettingsFragment"
-            a:title="@string/pref_title_configuration"
-            a:summary="@string/agent_custom"
-            a:icon="@drawable/ic_conf_settings"
-            a:singleLineTitle="false"
-            />
 
         <Preference
             a:key="@string/pref_key_full_menu"

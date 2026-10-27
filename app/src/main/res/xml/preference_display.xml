@@ -35,37 +35,24 @@
         x:singleLineTitle="false"
         />
 
-    <x.PreferenceCategory
-        x:key="@string/pref_key_configurations"
-        a:title="@string/pref_title_configuration"
-        a:summary="@string/pref_summary_configuration"
+    <x.SliderPreference
+        x:key="@string/pref_key_desktop_width"
+        x:title="@string/pref_title_desktop_width"
+        x:summary="@string/pref_summary_desktop_width"
+        x:icon="@drawable/ic_desktop"
+        x:seekBarIncrement="25"
+        x:showSeekBarValue="true"
+        x:iconSpaceReserved="true"
+        x:updatesContinuously="true"
+        a:valueFrom="100"
+        a:valueTo="400"
+        a:stepSize="25"
+        a:value="200"
+        x:labelBehavior="gone"
+        x:format="%.0f%%"
         x:singleLineTitle="false"
-        >
+        />
 
-        <Preference
-            x:fragment="fulguris.settings.fragment.PortraitSettingsFragment"
-            x:title="@string/pref_title_portrait"
-            x:icon="@drawable/ic_phone"
-            x:singleLineTitle="false"
-            />
-
-        <Preference
-            x:fragment="fulguris.settings.fragment.LandscapeSettingsFragment"
-            x:title="@string/pref_title_landscape"
-            x:icon="@drawable/ic_landscape"
-            x:singleLineTitle="false"
-            />
-
-        <Preference
-            x:key="@string/pref_key_add_configuration"
-            x:title="@string/pref_title_add_configuration"
-            x:icon="@drawable/ic_add"
-            x:singleLineTitle="false"
-            x:isPreferenceVisible="false"
-            tools:isPreferenceVisible="true"
-            />
-
-    </x.PreferenceCategory>
 
     <x.PreferenceCategory
         a:title="@string/settings_general"

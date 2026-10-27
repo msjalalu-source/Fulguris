@@ -23,6 +23,7 @@ import fulguris.enums.LayerType
 import fulguris.settings.preferences.delegates.booleanPreference
 import fulguris.settings.preferences.delegates.enumPreference
 import fulguris.settings.preferences.delegates.floatResPreference
+import fulguris.settings.preferences.delegates.floatPreference
 import fulguris.settings.preferences.delegates.intPreference
 import fulguris.settings.preferences.delegates.safeFloatPreference
 import fulguris.settings.preferences.delegates.stringPreference
@@ -470,6 +471,9 @@ class UserPreferences @Inject constructor(
      * WebView scrollbars size
      */
     var scrollbarSize by preferences.floatResPreference(R.string.pref_key_scrollbar_size, R.integer.pref_default_scrollbar_size)
+
+    /** Desktop mode viewport width in percent, one value for all screens */
+    var desktopWidth by preferences.floatPreference(R.string.pref_key_desktop_width, 200F)
 
 
 }
