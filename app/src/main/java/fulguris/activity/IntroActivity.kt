@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import fulguris.R
 import fulguris.fragment.AcceptTermsSlideFragment
 import fulguris.fragment.AdBlockerSlideFragment
-import fulguris.fragment.TelemetrySlideFragment
 import timber.log.Timber
 
 /**
@@ -85,10 +84,6 @@ class IntroActivity : AppIntro2() {
         // Add introduction slides
         addSlide(createWelcomeSlide())
         addSlide(AcceptTermsSlideFragment.newInstance())
-        // Don't add telemetry slide for F-Droid variant
-        if (!fulguris.Variant.isFdroid()) {
-            addSlide(TelemetrySlideFragment.newInstance())
-        }
         // Add ad blocker slide
         addSlide(AdBlockerSlideFragment.newInstance())
         // TODO: Could add a variant specific slide here

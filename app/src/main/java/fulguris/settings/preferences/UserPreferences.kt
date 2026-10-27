@@ -53,7 +53,7 @@ class UserPreferences @Inject constructor(
     /**
      * True if the browser should block ads, false otherwise.
      */
-    var adBlockEnabled by preferences.booleanPreference(BLOCK_ADS, false)
+    var adBlockEnabled by preferences.booleanPreference(BLOCK_ADS, true)
 
     /**
      * True if user scripts should be enabled and injected into web pages, false otherwise.
@@ -345,7 +345,10 @@ class UserPreferences @Inject constructor(
     /**
      * Tells if user has accepted our terms and conditions.
      */
-    var acceptTerms by preferences.booleanPreference(R.string.pref_key_accept_terms, false)
+    var acceptTerms by preferences.booleanPreference(R.string.pref_key_accept_terms, true)
+
+    /** True once we asked for the notification permission, so we only ask one time */
+    var notificationPermissionAsked by preferences.booleanPreference("notification_permission_asked", false)
 
     /**
      * User can disable Firebase Google Analytics.

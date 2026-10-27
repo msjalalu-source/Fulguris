@@ -342,6 +342,20 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
      */
     protected abstract fun updateCookiePreference(): Completable
 
+    /** Asks for the notification permission, used once on first launch */
+    private val notificationPermissionLauncher = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission()
+    ) { }
+
+    /** Android 13 and above only, asks one time, never twice */
+    private fun askNotificationPermissionOnce() {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) return
+        if (userPreferences.notificationPermissionAsked) return
+        if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_GRANTED) return
+        userPreferences.notificationPermissionAsked = true
+        notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.v("onCreate")
         // Need to go first to inject our components
@@ -371,6 +385,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
             // Not sure why but if we return here we crash even after IntroActivity is shown
             //return
         }
+        askNotificationPermissionOnce()
         //
         updateConfigurationSharedPreferences()
         // We want to control our decor
