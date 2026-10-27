@@ -159,8 +159,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     // We swap them as needed to make sure our view animations are performed smoothly and without flicker
     private lateinit var iTabViewContainerBack: PullRefreshLayout
     private lateinit var iTabViewContainerFront: PullRefreshLayout
-    // Points to current tab animator or null if no tab animation is running
-    private var iTabAnimator: ViewPropertyAnimator? = null
 
     // Full Screen Video Views
     private var fullscreenContainerView: FrameLayout? = null
@@ -325,7 +323,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
                 Timber.w(ex, "Workflow issue after closing new tab")
             }
         // Have a delay so that user gets to see the tab close animation and the task switcher preview is refreshed
-        }, if (userPreferences.onTabChangeShowAnimation) userPreferences.onTabChangeAnimationDuration.toLong() + 50 else 50)
+        }, 50)
     }
 
 
@@ -2896,14 +2894,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         Timber.d("Notify Tab Removed: $position")
         tabsView?.tabRemoved(position)
 
-        if (userPreferences.onTabCloseShowSnackbar && !skipNextTabClosedSnackbar) {
-            // Notify user a tab was closed with an option to recover it
-            makeSnackbar(
-                    getString(R.string.notify_tab_closed), Snackbar.LENGTH_SHORT, if (configPrefs.toolbarsBottom) Gravity.TOP else Gravity.BOTTOM)
-                    .setAction(R.string.button_undo) {
-                        tabsManager.recoverClosedTab()
-                    }.show()
-        }
         skipNextTabClosedSnackbar = false
     }
 
@@ -3021,7 +3011,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
                 doOnNewIntent(it, isIncognito())
             // Even with half second extra delay animation would not trigger on HONOR Magic V2 so we settled for 1 second
             // Largish delay is fine here as this is only the edge case where a tab is opened from external app while Fulguris is not running
-            }, if (userPreferences.onTabChangeShowAnimation) userPreferences.onTabChangeAnimationDuration.toLong()+1000 else 0)
+            }, 0)
         }
     }
 
@@ -3059,8 +3049,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     }
 
 
-    private var iTappedTab : WebPageTab? = null
-
     /**
      *
      */
@@ -3072,18 +3060,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         // TODO: Discard anchor links hit? Like the one from BBC menu drawer.
         aTab.webView?.hitTestResult?.let {
             Timber.i("onSingleTapUp: ${it.type}")
-            if (it.type==SRC_ANCHOR_TYPE || it.type==SRC_IMAGE_ANCHOR_TYPE) {
-                // Remember the tapped tab and we will start animation if that results in a page load from onProgressChanged with short delay
-                // GitHub page navigation notably needed more 600ms from tap progress notification
-                iTappedTab = aTab
-                mainHandler.postDelayed({
-                    iTappedTab = null
-                },1000)
-                // Animate our tab
-//                if (iTabAnimator==null && userPreferences.onPageStartedShowAnimation && aTab.isLoading) {
-//                    animateTabFlipLeft(iTabViewContainerFront)
-//                }
-            }
         }
     }
 
@@ -3164,30 +3140,14 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
         aView.removeFromParent() // Just to be safe
 
-        // Skip tab animation if user does not want it�
-        val skipAnimation = !userPreferences.onTabChangeShowAnimation
-                // �or if we already have a tab animation running
-                || iTabAnimator!=null
-
-        // If we have not swapped our views yet
-        if (skipAnimation) {
-            // Just perform our layout changes in our front view container then
-            // We need to specify the layout params otherwise WebView fails in the strangest way.
-            // In fact Web pages using popup and side menu will be broken as those elements background won't render, it'd look just transparent.
-            // Issue could be reproduced on firebase console side menu and some BBC consent pop-up
-            iTabViewContainerFront.addView(aView,0, MATCH_PARENT)
-            lastTabView?.removeFromParent()
-            iTabViewContainerFront.resetTarget() // Needed to make it work together with swipe to refresh
-            aView.requestFocus()
-        } else {
-            // Remove place holder
-            iPlaceHolder?.removeFromParent()
-            // Prepare our back view container then
-            iTabViewContainerBack.resetTarget() // Needed to make it work together with swipe to refresh
-            // Same as above, make sure you specify layout params when adding you web view
-            iTabViewContainerBack.addView(aView, MATCH_PARENT)
-            aView.requestFocus()
-        }
+        // Just perform our layout changes in our front view container then
+        // We need to specify the layout params otherwise WebView fails in the strangest way.
+        // In fact Web pages using popup and side menu will be broken as those elements background won't render, it'd look just transparent.
+        // Issue could be reproduced on firebase console side menu and some BBC consent pop-up
+        iTabViewContainerFront.addView(aView,0, MATCH_PARENT)
+        lastTabView?.removeFromParent()
+        iTabViewContainerFront.resetTarget() // Needed to make it work together with swipe to refresh
+        aView.requestFocus()
 
         // Remove existing focus change observer before we change our tab
         lastTabView?.onFocusChangeListener = null
@@ -3202,33 +3162,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
                 }
             } else {
                 inputMethodManager.hideSoftInputFromWindow(iBinding.uiLayout.windowToken, 0)
-            }
-        }
-        // Now everything is ready below our image snapshot of current view
-        // Last perform our transitions
-        if (!skipAnimation) {
-            // Swap our variables but not the views yet
-            val front = iTabViewContainerBack
-            iTabViewContainerBack = iTabViewContainerFront
-            iTabViewContainerFront = front
-            //
-            if (aWasTabAdded) {
-                animateTabInScaleUp(iTabViewContainerFront)
-            } else if (aPreviousTabClosed) {
-                animateTabOutScaleDown(iTabViewContainerBack)
-                if (userPreferences.onTabCloseVibrate) {
-                    vibrate()
-                }
-            }
-            else {
-                //iBinding.imageBelow.isVisible = false // Won't be needed in this case
-                if (aGoingBack) {
-                    animateTabOutRight(iTabViewContainerBack)
-                    animateTabInRight(iTabViewContainerFront)
-                } else {
-                    animateTabOutLeft(iTabViewContainerBack)
-                    animateTabInLeft(iTabViewContainerFront)
-                }
             }
         }
         showActionBar()
@@ -3255,264 +3188,8 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         mainHandler.postDelayed({ setupPullToRefresh(resources.configuration) }, 600)
     }
 
-    /**
-     * That's intended to show the user a new tab was created
-     */
-    private fun animateTabInScaleUp(aTab: View?) {
-        assertNull(iTabAnimator)
-        aTab?.let{
-            //iBinding.webViewFrame.addView(it, MATCH_PARENT)
-            // Set our properties
-            it.scaleX = 0f
-            it.scaleY = 0f
-            // Put our incoming frame on top
-            // This replaces swapTabViewsFrontToBack for this special case
-            // Still must not be on top of floating action buttons (FAB) touch tab switcher
-            it.removeFromParent()?.let { parent ->
-                parent.addView(it, 1)
-            }
-            // Animate it
-            iTabAnimator = it.animate()
-                    .scaleY(1f)
-                    .scaleX(1f)
-                    .setDuration(userPreferences.onTabChangeAnimationDuration.toLong())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            //Timber.d(Log.getStackTraceString(Exception()))
-                            aTab.post {
-                                it.scaleX = 1f
-                                it.scaleY = 1f
-                                iTabViewContainerBack.findViewById<WebViewEx>(R.id.web_view)?.apply{
-                                    val placeholder = iPlaceHolder
-                                    if (placeholder != null) {
-                                        removeFromParent()?.addView(placeholder)
-                                    }
-                                    //destroyIfNeeded()
-                                }
-                                //
-                                iTabAnimator = null;
-                            }
-                        }
-                    })
-        }
-    }
-
-    /**
-     * Intended to show user a tab was closed.
-     */
-    private fun animateTabOutScaleDown(aTab: View?) {
-        assertNull(iTabAnimator)
-        aTab?.let{
-            iTabAnimator = it.animate()
-                    .scaleY(0f)
-                    .scaleX(0f)
-                    .setDuration(userPreferences.onTabChangeAnimationDuration.toLong())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            //Timber.d(Log.getStackTraceString(Exception()))
-
-                            aTab.post {
-                                // Time to swap our frames
-                                swapTabViewsFrontToBack()
-
-                                // Now do the clean-up
-                                iTabViewContainerBack.findViewById<WebViewEx>(R.id.web_view)?.apply{
-                                    removeFromParent()?.addView(iPlaceHolder)
-                                    destroyIfNeeded()
-                                }
-
-                                // Reset our properties
-                                it.scaleX = 1.0f
-                                it.scaleY = 1.0f
-                                //
-                                iTabAnimator = null;
-                            }
-                        }
-                    })
-        }
-    }
 
 
-    /**
-     * Intended to show user a tab was sent to the background.
-     * Animate a tab that's being sent to the background.
-     * Designed to work together with [animateTabInRight].
-     */
-    private fun animateTabOutRight(aTab: View?) {
-        assertNull(iTabAnimator)
-        aTab?.let{
-                // Move our tab to a frame were we can animate it on top of our new foreground tab
-            iTabAnimator = it.animate()
-                        // Move our tab outside of the screen to the right
-                        .translationX(it.width.toFloat())
-                        .setDuration(userPreferences.onTabChangeAnimationDuration.toLong())
-                        .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator) {
-                                //Timber.d(Log.getStackTraceString(Exception()))
-
-                                aTab.post {
-                                    // Put outgoing frame in the back
-                                    swapTabViewsFrontToBack()
-                                        // Animation is complete unhook that tab then
-                                    it.findViewById<WebViewEx>(R.id.web_view)?.apply {
-                                        removeFromParent()?.addView(iPlaceHolder)
-                                        //destroyIfNeeded()
-                                    }
-
-                                    // Reset our properties
-                                    it.translationX = 0f
-                                    //
-                                    iTabAnimator = null
-                                }
-                            }
-                        })
-        }
-    }
-
-    /**
-     * Intended to show user a tab was sent to the background.
-     * Animate a tab that's being sent to the background.
-     * Designed to work together with [animateTabInLeft].
-     */
-    private fun animateTabOutLeft(aTab: View?) {
-        assertNull(iTabAnimator)
-        aTab?.let{
-            // Move our tab to a frame were we can animate it on top of our new foreground tab
-            iTabAnimator = it.animate()
-                    // Move our tab outside of the screen to the left
-                    .translationX(-it.width.toFloat())
-                    .setDuration(userPreferences.onTabChangeAnimationDuration.toLong())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            //Timber.d(Log.getStackTraceString(Exception()))
-                            aTab.post{
-                                // Put outgoing frame in the back
-                                swapTabViewsFrontToBack()
-                                // Animation is complete unhook that tab then
-                                it.findViewById<WebViewEx>(R.id.web_view)?.apply{
-                                    removeFromParent()?.addView(iPlaceHolder)
-                                    //destroyIfNeeded()
-                                }
-
-                                // Reset our properties
-                                it.translationX = 0f
-                                //
-                                iTabAnimator = null;
-                            }
-                        }
-                    })
-        }
-    }
-
-    /**
-     * Animate an incoming tab from the left to the right.
-     * Designed to work together with [animateTabOutRight].
-     */
-    private fun animateTabInRight(aTab: View?) {
-        aTab?.let{
-            it.translationX = -it.width.toFloat()
-            // Move our tab to a frame were we can animate it on top of our new foreground tab
-            it.animate()
-                    // Move our tab outside of the screen to the right
-                    .translationX(0f)
-                    .setDuration(userPreferences.onTabChangeAnimationDuration.toLong())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            // Animation is complete
-                            // Reset our properties
-                            it.translationX = 0f
-                        }
-                    })
-        }
-    }
-
-    /**
-     * Animate an incoming tab from the right to the left.
-     * Designed to work together with [animateTabOutLeft].
-     */
-    private fun animateTabInLeft(aTab: View?) {
-        aTab?.let{
-            // Initial tab position in offset to the right outside the screen
-            it.translationX = it.width.toFloat()
-            it.animate()
-                // Move our tab to its default layout position on the screen
-                .translationX(0f)
-                .setDuration(userPreferences.onTabChangeAnimationDuration.toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        // Animation is complete
-                        // Reset our properties
-                        it.translationX = 0f
-                    }
-                })
-        }
-    }
-
-
-    /**
-     * Used when going forward in tab history
-     */
-    private fun animateTabFlipLeft(aTab: View?) {
-        assertNull(iTabAnimator)
-        aTab?.let{
-            // Adjust camera distance to avoid clipping
-            val scale = resources.displayMetrics.density
-            it.cameraDistance = it.width * scale * 2
-            iTabAnimator = it.animate()
-                    .rotationY(360f)
-                    .setDuration(userPreferences.onTabBackAnimationDuration.toLong())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            it.rotationY = 0f
-                        //
-                        iTabAnimator = null;
-                        }
-                    })
-        }
-    }
-
-    /**
-     * Used when going back in tab history
-     */
-    private fun animateTabFlipRight(aTab: View?) {
-        assertNull(iTabAnimator)
-
-        aTab?.let{
-            // Adjust camera distance to avoid clipping
-            val scale = resources.displayMetrics.density
-            it.cameraDistance = it.width * scale * 2
-
-            iTabAnimator = it.animate()
-                    .rotationY(-360f)
-                    .setDuration(userPreferences.onTabBackAnimationDuration.toLong())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            it.rotationY = 0f
-                        //
-                        iTabAnimator = null;
-                        }
-                    })
-        }
-    }
-
-
-    /**
-     * Used when going forward in page history
-     */
-    fun animateTabFlipLeft() {
-        if (iTabAnimator==null && userPreferences.onTabBackShowAnimation) {
-            animateTabFlipLeft(iTabViewContainerFront)
-        }
-    }
-
-    /**
-     * Used when going backward in page history
-     */
-    fun animateTabFlipRight() {
-        if (iTabAnimator==null && userPreferences.onTabBackShowAnimation) {
-            animateTabFlipRight(iTabViewContainerFront)
-        }
-    }
 
     override fun showBlockedLocalFileDialog(onPositiveClick: Function0<Unit>) {
         MaterialAlertDialogBuilder(this)
@@ -3706,48 +3383,8 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         // containers (it only destroys itself once its animation ends); detach and
         // destroy it once the close animation is done (or right away if the user
         // does not want tab animations or another animation is already running).
-        val front = iTabViewContainerFront
-        if (userPreferences.onTabChangeShowAnimation && iTabAnimator == null && front.childCount > 0) {
-            animateNoTabsOut(front)
-        }
-        else {
-            cleanUpNoTabsContainers()
-            showNoTabsEmptyState()
-        }
-    }
-
-    /**
-     * Scale the last (closed) tab away, like [animateTabOutScaleDown], then show
-     * the no-tab empty state. tabChanged returns early when no tab is left so the
-     * regular close animation never runs in this case.
-     */
-    private fun animateNoTabsOut(front: View) {
-        if (userPreferences.onTabCloseVibrate) {
-            vibrate()
-        }
-        // Scale the closed tab's WebView down, exactly like the regular close
-        // animation ([animateTabOutScaleDown]); falling back to the whole
-        // container if the WebView is not there for some reason.
-        val tab = front.findViewById<WebViewEx>(R.id.web_view) ?: front
-        iTabAnimator = tab.animate()
-                .scaleY(0f)
-                .scaleX(0f)
-                .setDuration(userPreferences.onTabChangeAnimationDuration.toLong())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        tab.post {
-                            // Swap so the cleaned-up (empty) container ends up in
-                            // front, matching the regular close animation.
-                            swapTabViewsFrontToBack()
-                            cleanUpNoTabsContainers()
-                            iPlaceHolder?.let { iTabViewContainerFront.addView(it) }
-                            tab.scaleX = 1.0f
-                            tab.scaleY = 1.0f
-                            iTabAnimator = null
-                            showNoTabsEmptyState()
-                        }
-                    }
-                })
+        cleanUpNoTabsContainers()
+        showNoTabsEmptyState()
     }
 
     /**
@@ -3855,12 +3492,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     private fun currentTabGoBack() {
         tabsManager.currentTab?.let {
             it.goBack()
-            // If no animation running yet
-            if (iTabAnimator==null &&
-                    // and user wants animation
-                    userPreferences.onTabBackShowAnimation) {
-                animateTabFlipRight(iTabViewContainerFront)
-            }
         }
     }
 
@@ -3871,12 +3502,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     private fun currentTabGoForward() {
         tabsManager.currentTab?.let {
             it.goForward()
-            // If no animation running yet
-            if (iTabAnimator==null
-                    // and user wants animation
-                    && userPreferences.onTabBackShowAnimation) {
-                animateTabFlipLeft(iTabViewContainerFront)
-            }
         }
     }
 
@@ -4402,12 +4027,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
         if (aTab!=tabsManager.currentTab) {
             return
-        }
-
-        // Make sure we play forward animation when user tapped a link
-        if (iTappedTab == aTab && iTabAnimator==null && userPreferences.onPageStartedShowAnimation) {
-            animateTabFlipLeft(iTabViewContainerFront)
-            iTappedTab = null
         }
 
         // Advance the progress bar while the page is loading; always let a 100% report

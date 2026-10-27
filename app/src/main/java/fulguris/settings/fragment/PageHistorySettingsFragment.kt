@@ -118,14 +118,6 @@ class PageHistorySettingsFragment : AbstractSettingsFragment() {
                     // Compute to which item we should jump to
                     val steps = i - currentIndex
 
-                    if (steps>0) {
-                        // Going forward
-                        (activity as WebBrowserActivity).animateTabFlipLeft()
-                    } else if (steps<0) {
-                        // Going back
-                        (activity as WebBrowserActivity).animateTabFlipRight()
-                    }
-
                     // Use WebPageTab's method to ensure targetUrl is updated before navigation
                     tabsManager.currentTab?.goBackOrForward(steps)
                     // Remove tick from former current item

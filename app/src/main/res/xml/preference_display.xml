@@ -66,13 +66,6 @@
             x:singleLineTitle="false"
             />
 
-        <Preference
-            x:fragment="fulguris.settings.fragment.TabSettingsFragment"
-            x:title="@string/pref_title_tab"
-            x:summary="@string/pref_summary_tab"
-            x:icon="@drawable/ic_tab"
-            x:singleLineTitle="false"
-            />
 
         <x.EnumListPreference
             x:key="@string/pref_key_toolbar_label"
