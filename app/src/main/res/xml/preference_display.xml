@@ -35,21 +35,10 @@
         x:singleLineTitle="false"
         />
 
-    <x.SliderPreference
-        x:key="@string/pref_key_desktop_width"
-        x:title="@string/pref_title_desktop_width"
-        x:summary="@string/pref_summary_desktop_width"
+    <Preference
+        a:key="@string/pref_key_desktop_width"
+        a:title="@string/pref_title_desktop_width"
         x:icon="@drawable/ic_desktop"
-        x:seekBarIncrement="25"
-        x:showSeekBarValue="true"
-        x:iconSpaceReserved="true"
-        x:updatesContinuously="true"
-        a:valueFrom="100"
-        a:valueTo="400"
-        a:stepSize="25"
-        a:value="200"
-        x:labelBehavior="gone"
-        x:format="%.0f%%"
         x:singleLineTitle="false"
         />
 

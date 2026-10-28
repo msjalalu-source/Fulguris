@@ -471,6 +471,9 @@ class UserPreferences @Inject constructor(
     /** Desktop mode viewport width in percent, one value for all screens */
     var desktopWidth by preferences.floatPreference(R.string.pref_key_desktop_width, 200F)
 
+    /** Set by settings to ask the browser to show its zoom sheet: text or desktop, empty when none */
+    var pendingZoomSheet by preferences.stringPreference("pending_zoom_sheet", "")
+
 
 }
 

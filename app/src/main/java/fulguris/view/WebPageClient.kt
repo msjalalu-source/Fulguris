@@ -197,6 +197,15 @@ class WebPageClient(
     }
 
     /**
+     * Apply the current desktop width to the given web view right away, without reloading the page.
+     * Only meaningful when desktop mode is on.
+     */
+    fun applyDesktopWidthLive(aView: WebView) {
+        aView.settings.useWideViewPort = true
+        aView.evaluateJavascript(setMetaViewport.provideJs().replaceFirst("\$width\$", "${userPreferences.desktopWidth}"), null)
+    }
+
+    /**
      * Overrides [WebViewClient.shouldInterceptRequest].
      * Looks like we need to intercept our custom URLs here to implement support for fulguris and about scheme.
      *   comment Helium314: adBLock.shouldBock always never blocks if url.isSpecialUrl() or url.isAppScheme(), could be moved here

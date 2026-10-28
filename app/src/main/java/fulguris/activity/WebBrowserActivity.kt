@@ -3609,6 +3609,74 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     /**
      *
      */
+    /**
+     * Show our zoom sheet if the settings asked for it.
+     */
+    private fun showZoomSheetIfRequested() {
+        val kind = userPreferences.pendingZoomSheet
+        if (kind.isEmpty()) return
+        userPreferences.pendingZoomSheet = ""
+        mainHandler.post { showZoomSheet(kind) }
+    }
+
+    /**
+     * Small bottom sheet with a slider so that the web page stays visible while scaling it.
+     * @param kind "text" for text size, anything else for desktop width.
+     */
+    private fun showZoomSheet(kind: String) {
+        val isText = kind == "text"
+        val sheet = BottomSheetDialog(this)
+        val pad = fulguris.utils.Utils.dpToPx(20f)
+        val root = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(pad, pad, pad, pad)
+        }
+        val title = android.widget.TextView(this).apply {
+            text = getString(if (isText) R.string.title_text_size else R.string.pref_title_desktop_width)
+            textSize = 18f
+        }
+        val valueText = android.widget.TextView(this).apply { textSize = 16f }
+        val seek = android.widget.SeekBar(this)
+        if (isText) {
+            seek.max = MAX_BROWSER_TEXT_SIZE - MIN_BROWSER_TEXT_SIZE
+            seek.progress = userPreferences.browserTextSize
+        } else {
+            seek.max = 12
+            seek.progress = Math.round((userPreferences.desktopWidth - 100f) / 25f).coerceIn(0, 12)
+        }
+        fun scaled(progress: Int): Int = if (isText) progress + MIN_BROWSER_TEXT_SIZE else 100 + 25 * progress
+        valueText.text = scaled(seek.progress).toString() + "%"
+        seek.setOnSeekBarChangeListener(object : android.widget.SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: android.widget.SeekBar, progress: Int, fromUser: Boolean) {
+                valueText.text = scaled(progress).toString() + "%"
+                val tab = tabsManager.currentTab
+                if (isText) {
+                    userPreferences.browserTextSize = progress
+                    tab?.webView?.settings?.textZoom = scaled(progress)
+                } else {
+                    userPreferences.desktopWidth = scaled(progress).toFloat()
+                    val webView = tab?.webView
+                    if (tab != null && webView != null && tab.desktopMode) {
+                        tab.webPageClient.applyDesktopWidthLive(webView)
+                    }
+                }
+            }
+            override fun onStartTrackingTouch(seekBar: android.widget.SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: android.widget.SeekBar) {}
+        })
+        root.addView(title)
+        root.addView(valueText)
+        root.addView(seek)
+        sheet.setContentView(root)
+        // Keep the web page fully visible behind the sheet
+        sheet.window?.setDimAmount(0f)
+        sheet.setOnDismissListener {
+            // Let every other tab pick up the new value
+            tabsManager.allTabs.forEach { it.initializePreferences() }
+        }
+        sheet.show()
+    }
+
     override fun onResume() {
         updateConfigurationSharedPreferences()
         super.onResume()
@@ -3649,6 +3717,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
         tabsManager.resumeAll()
         initializePreferences()
+        showZoomSheetIfRequested()
 
         // The hide countdown is cancelled when the app stops; start it again on return so a
         // visible tool bar auto-hides once more. (The web view keeps its focus through the

@@ -22,6 +22,9 @@
 
 {
     'use strict';
+    // Desired viewport width in percentage of the actual viewport width
+    // Replaced from our Kotlin code, every injection updates it so live changes reach older listeners
+    window.fulgurisDesktopWidth = $width$;
     // Just call our entry point
     main();
 
@@ -32,7 +35,7 @@
      */
     function main() {
         // Desired viewport width in percentage of the actual viewport width
-        var width = $width$; // Replaced from our Kotlin code with desired percentage of actual width
+        var width = window.fulgurisDesktopWidth; // Desired percentage of actual width, set at the start of this script
         // We used this to check that our HTML page already available
         //log(document.documentElement.outerHTML);
 
@@ -115,6 +118,9 @@
         console.log("Fulguris: " + aString);
     }
 
+    // Install our listeners only once per page
+    if (!window.fulgurisViewportInstalled) {
+    window.fulgurisViewportInstalled = true;
     // Reapply our meta viewport again whenever our page is resized
     // That was needed at least for Google search result page, not sure why though
     window.addEventListener('resize', (event) => {
@@ -133,5 +139,6 @@
         //metaViewport.setAttribute('content', 'width=device-width');
         main()
     });
+    }
 
 }

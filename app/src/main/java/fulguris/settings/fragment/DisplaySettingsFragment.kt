@@ -86,7 +86,14 @@ class DisplaySettingsFragment : AbstractSettingsFragment() {
         clickableDynamicPreference(
                 preference = getString(R.string.pref_key_browser_text_size),
                 summary = (userPreferences.browserTextSize + MIN_BROWSER_TEXT_SIZE).toString() + "%",
-                onClick = ::showTextSizePicker
+                onClick = { openZoomSheet("text") }
+        )
+
+        // Desktop width opens the same kind of sheet over the web page
+        clickableDynamicPreference(
+                preference = getString(R.string.pref_key_desktop_width),
+                summary = userPreferences.desktopWidth.toInt().toString() + "%",
+                onClick = { openZoomSheet("desktop") }
         )
 
         // Setup rendering mode selection
@@ -140,6 +147,15 @@ class DisplaySettingsFragment : AbstractSettingsFragment() {
         RenderingMode.INVERTED_GRAYSCALE -> R.string.name_inverted_grayscale
         RenderingMode.INCREASE_CONTRAST -> R.string.name_increase_contrast
     })
+
+    /**
+     * Close settings and ask our browser to show its zoom sheet so that the web page stays visible.
+     */
+    private fun openZoomSheet(kind: String): Boolean {
+        userPreferences.pendingZoomSheet = kind
+        activity?.finish()
+        return true
+    }
 
     private fun showTextSizePicker(summaryUpdater: SummaryUpdater) : Boolean {
         MaterialAlertDialogBuilder(activity as Activity).apply {
