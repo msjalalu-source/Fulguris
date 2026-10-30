@@ -109,6 +109,12 @@ interface WebBrowser {
     fun onProgressChanged(aTab: WebPageTab, aProgress: Int)
 
     /**
+     * Called as soon as a new page load is requested, before the web view starts loading it.
+     * Lets us show the loading bar right away.
+     */
+    fun onLoadStarting(aTab: WebPageTab)
+
+    /**
      * Notify the controller that a [url] has been visited.
      *
      * @param title the optional title of the current page being viewed.

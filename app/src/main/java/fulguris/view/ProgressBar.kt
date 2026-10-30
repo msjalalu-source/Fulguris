@@ -97,6 +97,10 @@ class ProgressBar : View {
             } else if (progress < 0) {  // progress cannot be less than 0
                 progress = 0
             }
+            // While a page is loading the bar never goes backward, our creeping or an older web view event may be ahead
+            if (progress < mProgress && progress < 100 && mProgress < 100 && mProgress > 0) {
+                return
+            }
             if (alpha < 1.0f) {
                 fadeIn()
             }
@@ -119,7 +123,48 @@ class ProgressBar : View {
             if (deltaWidth != 0) {
                 animateView(mDrawWidth, deltaWidth, mWidth) // animate the width change
             }
+            // Keep creeping forward slowly while the page is loading
+            removeCallbacks(mCreepRunnable)
+            if (mProgress in 1..99) {
+                postDelayed(mCreepRunnable, CREEP_DELAY)
+            }
         }
+
+    /** Tells us whether the page is still loading, so that we stop creeping forward when it is not */
+    var isLoadingCheck: (() -> Boolean)? = null
+
+    /**
+     * Moves the bar forward slowly while we wait for the page, it slows down as it gets closer to [CREEP_MAX].
+     */
+    private val mCreepRunnable = object : Runnable {
+        override fun run() {
+            if (mProgress <= 0 || mProgress >= 100) {
+                return
+            }
+            if (isLoadingCheck?.invoke() == false) {
+                // Not loading anymore, finish the bar
+                progress = 100
+                return
+            }
+            if (mProgress < CREEP_MAX) {
+                progress = mProgress + maxOf(1, (CREEP_MAX - mProgress) / 8)
+            } else {
+                postDelayed(this, CREEP_DELAY)
+            }
+        }
+    }
+
+    /**
+     * Start again from zero, used when a new page load is requested.
+     */
+    fun restart() {
+        removeCallbacks(mCreepRunnable)
+        mAnimationQueue.clear()
+        clearAnimation()
+        mProgress = 0
+        mDrawWidth = 0
+        invalidate()
+    }
 
     private val mPaint = Paint()
     private val mRect = Rect()
@@ -214,6 +259,8 @@ class ProgressBar : View {
 
     companion object {
         private const val PROGRESS_DURATION: Long = 500
+        private const val CREEP_MAX = 80
+        private const val CREEP_DELAY: Long = 400
         private const val ALPHA_DURATION: Long = 200
     }
 }

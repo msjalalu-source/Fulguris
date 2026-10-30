@@ -3858,22 +3858,13 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         // No animation for now
         // Toolbar background color
         iBinding.toolbarInclude.toolbarLayout.setBackgroundColor(color)
-        iBinding.toolbarInclude.progressView.mProgressColor = color
+        // Our loading bar is always blue whatever the page colors are
+        iBinding.toolbarInclude.progressView.mProgressColor = Color.parseColor("#1E88E5")
         // Search text field color
         setSearchBarColors(color)
 
-        // Progress bar background color
-        DrawableUtils.mixColor(0.5f, color, Color.WHITE).let {
-            // Set progress bar background color making sure it isn't too bright
-            // That's notably making it more visible on lequipe.fr and bbc.com/sport
-            // We hope this is going to work with most white themed website too
-            if (ColorUtils.calculateLuminance(it)>0.75) {
-                iBinding.toolbarInclude.progressView.setBackgroundColor(Color.BLACK)
-            }
-            else {
-                iBinding.toolbarInclude.progressView.setBackgroundColor(it)
-            }
-        }
+        // Progress bar track, a light blue so that the blue bar is visible on any toolbar color
+        iBinding.toolbarInclude.progressView.setBackgroundColor(Color.parseColor("#331E88E5"))
 
         // Then the color of the status bar itself
         setStatusBarColor(color, currentToolBarTextColor == Color.BLACK)
@@ -4054,6 +4045,18 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     /**
      *
      */
+    override fun onLoadStarting(aTab: WebPageTab) {
+        if (aTab != tabsManager.currentTab) {
+            return
+        }
+        iBinding.toolbarInclude.progressView.apply {
+            // Creep forward only while the current tab is still loading
+            isLoadingCheck = { tabsManager.currentTab?.isLoading == true }
+            restart()
+            progress = 10
+        }
+    }
+
     override fun onProgressChanged(aTab: WebPageTab, aProgress: Int) {
 
         if (aTab!=tabsManager.currentTab) {

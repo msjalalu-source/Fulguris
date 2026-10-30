@@ -345,6 +345,9 @@ class WebPageTab(
      * cannot leave the stop button stuck on or make it flicker.
      */
     var isLoading = false
+
+    /** Used to ignore the delayed safety check of a previous navigation */
+    private var iEarlyProgressToken = 0
         internal set
 
     /**
@@ -1348,6 +1351,16 @@ class WebPageTab(
 
         // Mark loading for the new page load so the stop button shows right away
         isLoading = true
+
+        // Show our loading bar right away, do not wait for the web view to report progress
+        webBrowser.onLoadStarting(this)
+        val earlyToken = ++iEarlyProgressToken
+        webView?.postDelayed({
+            // Nothing started loading after a while, a download or a blocked page perhaps, so finish the bar
+            if (earlyToken == iEarlyProgressToken && isLoading && (webView?.progress ?: 100) >= 100) {
+                webBrowser.onProgressChanged(this, 100)
+            }
+        }, 15000)
 
         iTargetUrl = Uri.parse(aUrl)
 
