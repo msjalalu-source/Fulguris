@@ -239,7 +239,7 @@ class LightningDownloadListener     //Injector.getInjector(context).inject(this)
 
         // Build descriptive message following MD3 guidelines
         // If server sends generic octet-stream, infer MIME type from file extension
-        // Notably the case for Fulguris APK download from slions.net
+        // Notably the case for Fulguris APK download from example.com
         val mimeTypeDetectedFromExtension = mimetype == "application/octet-stream" || mimetype.isBlank()
         val fileType = when {
             mimeTypeDetectedFromExtension -> {

@@ -614,7 +614,6 @@ class TabsManager @Inject constructor(
         Timber.d("saveState")
 
         // Fix bug where all tabs would get lost
-        // See: https://github.com/Slion/Fulguris/issues/193
         if (!isInitialized) {
             Timber.d("saveState - Don't do that")
             return

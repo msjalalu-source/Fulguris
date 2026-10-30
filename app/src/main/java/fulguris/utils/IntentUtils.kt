@@ -104,7 +104,6 @@ import java.util.regex.Pattern
      * Per the Android intent scheme spec, when an `intent://` URL targets an app that is not
      * installed, the `browser_fallback_url` extra (if present) takes precedence over going to
      * the Play Store. This avoids landing on `ERR_UNKNOWN_URL_SCHEME` or a blank tab.
-     * See https://github.com/Slion/Fulguris/issues/799
      */
     fun Activity.startActivityWithFallback(tab: WebView?, intent: Intent, onlyFallback: Boolean): Boolean {
         Timber.d("startActivityWithFallback")
@@ -170,7 +169,6 @@ import java.util.regex.Pattern
      * the URL can still declare unrelated or wildcard authorities (e.g. a browser
      * whose filter also covers a custom scheme, or a wildcard authority that matches
      * any host), which would otherwise make every site look launchable.
-     * See https://github.com/Slion/Fulguris/issues/542
      *
      * For non-web URLs (mailto, custom schemes) there is no host to match against,
      * so any declared data authority, or any non-web data scheme, counts.

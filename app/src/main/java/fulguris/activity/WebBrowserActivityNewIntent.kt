@@ -93,8 +93,6 @@ fun WebBrowserActivity.doOnNewIntent(aIntent: Intent?, aIncognitoStartup: Boolea
     else if (aIntent?.action == Intent.ACTION_SEND) {
         // TODO: Check if we received a valid URL, if so check the domain settings options
         // If it is not a URL we could fallback to a search I guess
-        // See: https://github.com/Slion/Fulguris/issues/710
-        // See: https://github.com/Slion/Fulguris/issues/628
         // User shared text with our app
         if ("text/plain" == aIntent.type || "text/x-uri" == aIntent.type) {
             // Get shared text
@@ -114,7 +112,6 @@ fun WebBrowserActivity.doOnNewIntent(aIntent: Intent?, aIncognitoStartup: Boolea
                 // subject when one was actually provided, otherwise the shared text (its first
                 // line). Note `subject` defaults to R.string.unknown ("Unknown") when no
                 // EXTRA_SUBJECT is present, so its blank-ness is not a reliable signal.
-                // See: https://github.com/Slion/Fulguris/issues/710
                 setAddressBarText(if (aIntent.hasExtra(Intent.EXTRA_SUBJECT) && subject.isNotBlank()) {
                     subject
                 } else if (clue.isNullOrBlank()) {

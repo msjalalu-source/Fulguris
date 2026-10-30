@@ -89,7 +89,6 @@ buildTypes {
         debug {
             signingConfig signingConfigs.release
             debuggable = true
-            // See: https://github.com/Slion/Fulguris/issues/116
             // If we disable minify then we need multi DEX.
             multiDexEnabled = true
             minifyEnabled = false
@@ -320,7 +319,6 @@ unMock {
 dependencies {
     // Multi DEX is needed for core library desugaring and when minify is disabled
     // See [BrowserApp.attachBaseContext]
-    // See: https://github.com/Slion/Fulguris/issues/116
     implementation libs.androidx.multidex
 
     // Core library desugaring for Sora Editor TextMate support

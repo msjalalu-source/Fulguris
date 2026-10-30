@@ -52,14 +52,12 @@ fun adjustBottomSheet(aDialog : BottomSheetDialog) {
 }
 
 /**
- * Workaround reversed layout bug: https://github.com/Slion/Fulguris/issues/212
  */
 fun fixScrollBug(aList : RecyclerView): Boolean {
     val lm = (aList.layoutManager as LinearLayoutManager)
     // Can't change stackFromEnd when computing layout or scrolling otherwise it throws an exception
     if (!aList.isComputingLayout) {
         if (aList.context.configPrefs.toolbarsBottom) {
-            // Workaround reversed layout bug: https://github.com/Slion/Fulguris/issues/212
             if (lm.stackFromEnd != aList.canScrollVertically()) {
                 lm.stackFromEnd = !lm.stackFromEnd
                 return true

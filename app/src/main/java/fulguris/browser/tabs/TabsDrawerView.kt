@@ -60,7 +60,6 @@ class TabsDrawerView @JvmOverloads constructor(
             // LinearLayoutManager.setReverseLayout is also adjusted from BrowserActivity.setupToolBar
             val lm = LinearLayoutManager(context, RecyclerView.VERTICAL, context.configPrefs.toolbarsBottom)
             // Though that should not be needed as it is taken care of by [fixScrollBug]
-            // See: https://github.com/Slion/Fulguris/issues/212
             lm.stackFromEnd = context.configPrefs.toolbarsBottom
             layoutManager = lm
             adapter = tabsAdapter

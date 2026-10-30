@@ -61,7 +61,6 @@ class DomainPreferences constructor(
         // Had to go through HttpUrl object otherwise IP address are acting funny
         // TODO: Maybe that should be fixed upstream?
         // Needed to catch in case we get malformed domain
-        // See: https://github.com/Slion/Fulguris/issues/596
         try {
             "http://$domain".toHttpUrl().topPrivateDomain()
         } catch (ex: Exception) {
@@ -96,7 +95,6 @@ class DomainPreferences constructor(
 
     // Preferences of the parent, either the top private domain or the default settings
     // TODO: I don't think that will be working for sub-sub-domain. It seems we just jump to the top level domain anyway
-    // See: https://github.com/Slion/Fulguris/issues/554
     val parent: DomainPreferences? = if (isDefault) null else DomainPreferences(context, if (isSubDomain) topPrivateDomain!! else "")
 
     /**

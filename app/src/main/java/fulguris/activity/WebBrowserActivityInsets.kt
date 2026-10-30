@@ -16,7 +16,6 @@ import timber.log.Timber
 fun WebBrowserActivity.applyWindowInsets(view: View, windowInsets: WindowInsetsCompat) {
 
     // That's still needed before API 35, it was at least needed for Android 13 on Samsung Galaxy A22
-    // See: https://github.com/Slion/Fulguris/issues/686
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         val cutoutMode = if (configPrefs.useCutoutArea) LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS else LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
         if (window.attributes.layoutInDisplayCutoutMode != cutoutMode) {

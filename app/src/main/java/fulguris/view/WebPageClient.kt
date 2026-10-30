@@ -70,7 +70,7 @@ import androidx.core.net.toUri
 /**
  * We have one instance of this per [WebView] and our [WebPageTab] also as a reference to it.
  *
- * Page load events sequence tested against slions.net:
+ * Page load events sequence tested against example.com:
  * - [shouldOverrideUrlLoading] when applicable
  * - [shouldInterceptRequest]
  * - [onLoadResource] - For the page URL is called first
@@ -493,7 +493,6 @@ class WebPageClient(
         // Reset the flag to allow onPageFinished to execute for this new page
         // This is critical for history navigation (back/forward) which may load from cache
         // and not trigger shouldInterceptRequest for the main frame
-        // See: https://github.com/Slion/Fulguris/issues/772
         onPageFinishedDone = false
         webPageTab.isLoading = true
 
@@ -852,7 +851,7 @@ class WebPageClient(
      * - Back and forward in tab history
      *
      * The following actions should call this method:
-     * - Redirect, like when opening http://slions.net will redirect to https://slions.net
+     * - Redirect, like when opening http://example.com will redirect to https://example.com
      * - When user clicks on a link
      * - Basically whenever the URL of the tab should change except when going back and forward weirdly
      *
@@ -965,7 +964,6 @@ class WebPageClient(
                     if (resolveInfos.isEmpty()) {
                         Timber.w("No apps found to handle intent")
                         // No app installed: still honour browser_fallback_url if any.
-                        // See https://github.com/Slion/Fulguris/issues/799
                         return activity.startActivityWithFallback(view, intent, true)
                     }
 
@@ -1043,7 +1041,6 @@ class WebPageClient(
         // We always stop loading for unsupported schemes so that pages redirecting to a
         // custom scheme whose app is not installed (e.g. enalibaba:// on alibaba.com)
         // do not land on an ugly ERR_UNKNOWN_URL_SCHEME page. The user stays on the
-        // current page instead. See https://github.com/Slion/Fulguris/issues/799
         if (!URLUtil.isNetworkUrl(url)
             && !URLUtil.isFileUrl(url)
             && !URLUtil.isAboutUrl(url)
@@ -1058,7 +1055,6 @@ class WebPageClient(
             headers.isEmpty() -> false
             else -> {
                 // I reckon this is what breaks page history when using custom headers
-                // See: https://github.com/Slion/Fulguris/issues/414
                 // TODO: There must be a way to make custom headers work without calling loadUrl from here
                 webView.loadUrl(url, headers)
                 Timber.w("$ihs : Load URL with headers")

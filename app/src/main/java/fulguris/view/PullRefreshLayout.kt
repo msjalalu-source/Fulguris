@@ -34,7 +34,6 @@ import java.lang.reflect.Method
 import kotlin.math.abs
 
 /**
- * This is working around the following issue: https://github.com/Slion/Fulguris/issues/60
  * See: https://stackoverflow.com/a/23989911/3969362
  *
  * It improves to odds of not running into the issue while not fixing it.
@@ -92,7 +91,6 @@ class PullRefreshLayout(context: Context, attrs: AttributeSet?) : SwipeRefreshLa
      */
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
         // Prevent crash when SwipeRefreshLayout does not have a target
-        // See: https://github.com/Slion/Fulguris/issues/285
         callEnsureTarget()
         if (getTarget()==null) {
             //Log.d(LOG_TAG,"================FIXED-IT================::onTouchEvent")
@@ -108,7 +106,6 @@ class PullRefreshLayout(context: Context, attrs: AttributeSet?) : SwipeRefreshLa
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
 
         // Prevent crash when SwipeRefreshLayout does not have a target
-        // See: https://github.com/Slion/Fulguris/issues/285
         callEnsureTarget()
         if (getTarget()==null) {
             //Log.d(LOG_TAG,"================FIXED-IT================")

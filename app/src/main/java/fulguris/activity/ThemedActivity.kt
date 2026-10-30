@@ -59,7 +59,6 @@ abstract class ThemedActivity : LocaleAwareActivity() {
         // That's apparently not an issue specific to Fulguris
         applyTheme(provideThemeOverride()?:themeId)
         applyAccent()
-        // NOTE: https://github.com/Slion/Fulguris/issues/308
         // Only now call on create which will do Hilt injections
         super.onCreate(savedInstanceState)
         setDefaultTaskDescriptor()

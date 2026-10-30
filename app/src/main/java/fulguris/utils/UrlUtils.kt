@@ -448,7 +448,6 @@ fun hasExtensionMismatch(filename: String, mimeType: String?): Pair<Boolean, Str
 
 /**
  * Compare the filename extension with the mime type and change it if necessary.
- * See: https://github.com/Slion/Fulguris/issues/564
  *
  * Logic:
  * - If original extension is unknown to Android: append MIME type extension (e.g., file.bcpkg -> file.bcpkg.zip)

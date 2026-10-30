@@ -29,7 +29,6 @@ import android.util.AttributeSet
 /**
  * We rolled out our own ImageView to mitigate those "trying to use a recycled bitmap" exceptions
  * See:
- * - https://github.com/Slion/Fulguris/issues/376
  * - https://stackoverflow.com/a/68086694/3969362
  */
 class ImageView : androidx.appcompat.widget.AppCompatImageView {
@@ -48,7 +47,6 @@ class ImageView : androidx.appcompat.widget.AppCompatImageView {
             super.onDraw(canvas)
         } catch (e: Exception) {
             //Something went wrong, possibly that recycled bitmap issue
-            // See: https://github.com/Slion/Fulguris/issues/376
             e.printStackTrace();
         }
     }

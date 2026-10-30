@@ -276,7 +276,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
     private val longPressBackRunnable = Runnable {
         // Disable this for now as it is popping up when exiting full screen video mode.
-        // See: https://github.com/Slion/Fulguris/issues/81
         //showCloseDialog(tabsManager.positionOf(tabsManager.currentTab))
     }
 
@@ -398,7 +397,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         if (app.justStarted) {
             app.justStarted = false
             // Since amazingly on Android you can't tell when your app is closed we do exit cleanup on start-up, go figure
-            // See: https://github.com/Slion/Fulguris/issues/106
             performExitCleanUp()
         }
 
@@ -462,12 +460,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
         initialize(savedInstanceState)
 
-        if (BuildConfig.FLAVOR.contains("slionsFullDownload")) {
-            tabsManager.doOnceAfterInitialization {
-                // Check for update after a short delay, hoping user engagement is better and message more visible
-                mainHandler.postDelayed({ checkForUpdates() }, 3000)
-            }
-        } else if (BuildConfig.FLAVOR_BRAND != "slions") {
+        if (BuildConfig.FLAVOR_BRAND != "slions") {
             // As per CPAL license show attribution if not slions brand
             makeSnackbar("",5000, Gravity.TOP).setAction("Powered by ?Fulguris") {
                 Intent(Intent.ACTION_VIEW).apply{
@@ -476,29 +469,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
                     startActivity(this)
                 }
             }.show()
-        }
-
-        // Welcome new users or notify of updates
-        tabsManager.doOnceAfterInitialization {
-            // If our version code was changed
-            if (userPreferences.versionCode != BuildConfig.VERSION_CODE) {
-                // This callback is not tied to our lifecycle (TabsManager outlives
-                // us): if we're finishing/destroyed the window token is gone and
-                // showing a dialog would crash with BadTokenException.
-                val canShowDialog = !isFinishing && !isDestroyed
-                if (userPreferences.versionCode==0
-                        // Added this check to avoid show welcome message to existing installation
-                        // TODO: Remove that a few versions down the road
-                        && sessionsManager.sessions().count()==1 && tabsManager.allTabs.count()==1) {
-                    // First run
-                    if (canShowDialog) welcomeToFulguris()
-                } else {
-                    // Version was updated
-                    if (canShowDialog) notifyVersionUpdate()
-                }
-                // Persist our current version so that we don't kick in next time
-                userPreferences.versionCode = BuildConfig.VERSION_CODE
-            }
         }
 
         // This callback is trigger after we switch session, Could be useful at some point
@@ -601,7 +571,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         dialog.setContentView(aContentView)
         dialog.behavior.skipCollapsed = true
         dialog.behavior.isDraggable = !userPreferences.lockedDrawers
-        // Fix for https://github.com/Slion/Fulguris/issues/226
         dialog.behavior.maxWidth = -1 // We want fullscreen width
 
         // Make sure dialog top padding and status bar icons color are updated whenever our dialog is resized
@@ -2145,7 +2114,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     {
         iCapturedRecentTabsIndices?.let {
             // Replace our recent tabs list by putting our captured one back in place making sure the selected tab is going back on top
-            // See: https://github.com/Slion/Fulguris/issues/56
             tabsManager.iRecentTabs = it.toMutableSet()
             val tab = tabsManager.iRecentTabs.elementAt(iRecentTabIndex)
             tabsManager.iRecentTabs.remove(tab)
@@ -2191,7 +2159,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     }
 
     // Needed to workaround that WSA bug:
-    // https://github.com/Slion/Fulguris/issues/484
     var iCtrlLeftDown: Boolean = false
     var iCtrlRightDown: Boolean = false
 
@@ -2790,7 +2757,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
     /**
      * Two code path depending on whether our search view is already visible.
-     * See: https://github.com/Slion/Fulguris/issues/402
      */
     private fun findInPage() {
         iBinding.findInPageInclude.apply {
@@ -2826,7 +2792,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         }
 
         // Disable pull to refresh if no vertical scroll as it bugs with frame internal scroll
-        // See: https://github.com/Slion/Lightning-Browser/projects/1
         iTabViewContainerFront.isEnabled = currentTabView?.canScrollVertically()?:false
         updateReloadButton()
     }
@@ -3695,7 +3660,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         // TODO: Consider !configPrefs.verticalTabBar and !configPrefs.tabBarInDrawer
         if (userPreferences.lockedDrawers
                 // We need to lock our drawers when using bottom sheets
-                // See: https://github.com/Slion/Fulguris/issues/192
                 || userPreferences.useBottomSheets
         ) {
             lockDrawers()
@@ -4027,7 +3991,6 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
             // Set our text but don't perform filtering
             // We don't need filtering as this is just a text update from our engine rather than user performing text input and expecting search results
-            // Filter deactivation was introduce to prevent https://github.com/Slion/Fulguris/issues/557
             searchView.setText(text,false)
         }
     }
@@ -5039,93 +5002,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
             }
 
 
-    /**
-     * Welcome user after first installation.
-     */
-    private fun welcomeToFulguris() {
-        MaterialAlertDialogBuilder(this)
-                .setCancelable(true)
-                .setTitle(R.string.title_welcome)
-                .setMessage(R.string.message_welcome)
-                .setNegativeButton(R.string.no, null)
-                .setPositiveButton(R.string.yes) { _, _ -> val url = getString(R.string.url_app_home_page)
-                    val i = Intent(Intent.ACTION_VIEW)
-                    i.data = Uri.parse(url)
-                    // Make sure we don't send ourselves to the background when closing a tab we opened ourselves
-                    i.putExtra("PACKAGE", packageName)
-                    startActivity(i)}
-                .launch()
-    }
 
-
-    /**
-     * Notify user about application update.
-     */
-    private fun notifyVersionUpdate() {
-        // TODO: Consider using snackbar instead to be less intrusive, make it a settings option?
-        MaterialAlertDialogBuilder(this)
-                .setCancelable(true)
-                .setIcon(R.drawable.ic_lightning)
-                .setTitle(R.string.dialog_title_updated)
-                .setMessage(getString(R.string.dialog_message_updated, BuildConfig.VERSION_NAME))
-                .setNegativeButton(R.string.no, null)
-                .setPositiveButton(R.string.yes) { _, _ -> val url = getString(R.string.url_app_updates)
-                    val i = Intent(Intent.ACTION_VIEW)
-                    i.data = Uri.parse(url)
-                    // Make sure we don't send ourselves to the background when closing a tab we opened ourselves
-                    i.putExtra("PACKAGE", packageName)
-                    startActivity(i)}
-                .launch()
-    }
-
-
-    /**
-     * Check for update on slions.net.
-     */
-    private fun checkForUpdates() {
-        val url = getString(R.string.slions_update_check_url)
-        // Request a JSON object response from the provided URL.
-        val request = object: JsonObjectRequest(Request.Method.GET, url, null,
-                Response.Listener<JSONObject> { response ->
-
-                    val latestVersion = response.getJSONArray("versions").getJSONObject(0).getString("version_string")
-                    if (latestVersion != BuildConfig.VERSION_NAME) {
-                        // We have an update available, tell our user about it
-                        makeSnackbar(
-                                getString(R.string.update_available) + " - v" + latestVersion, 5000, if (configPrefs.toolbarsBottom) Gravity.TOP else Gravity.BOTTOM) //Snackbar.LENGTH_LONG
-                                .setAction(R.string.show, OnClickListener {
-                                    val url = getString(R.string.url_app_home_page)
-                                    val i = Intent(Intent.ACTION_VIEW)
-                                    i.data = Uri.parse(url)
-                                    // Make sure we don't send ourselves to the background when closing a tab we opened ourselves
-                                    i.putExtra("PACKAGE", packageName)
-                                    startActivity(i)
-                                }).show()
-                    }
-
-                    //Log.d(TAG,response.toString())
-                },
-                Response.ErrorListener { error: VolleyError ->
-                    // Just ignore error for background update check
-                    // Use the following for network status code
-                    // Though networkResponse can be null in flight mode for instance
-                    // error.networkResponse.statusCode.toString()
-
-                }
-        ){
-            @Throws(AuthFailureError::class)
-            override fun getHeaders(): Map<String, String> {
-                val params: MutableMap<String, String> = HashMap()
-                // Provide here slions.net API key as part of this requests HTTP headers
-                params["XF-Api-Key"] = getString(R.string.slions_api_key)
-                return params
-            }
-        }
-
-        request.tag = TAG
-        // Add the request to the RequestQueue.
-        queue.add(request)
-    }
 
     var iLastTouchUpPosition: Point = Point()
 

@@ -814,7 +814,6 @@ class WebPageTab(
             allowFileAccessFromFileURLs = false
             allowUniversalAccessFromFileURLs = false
             // Needed to prevent CTRL+TAB to scroll back to top of the page
-            // See: https://github.com/Slion/Fulguris/issues/82
             setNeedInitialFocus(false)
 
 
