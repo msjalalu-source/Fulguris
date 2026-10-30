@@ -50,7 +50,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var networkEngineManager: fulguris.network.NetworkEngineManager
 
-    private lateinit var iPrefSearchCustomImageUrl: Preference
     private var defaultBrowserPreference: Preference? = null
 
     /**
@@ -83,12 +82,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
             preference = SETTINGS_HOME,
             summary = homePageUrlToDisplayTitle(userPreferences.homepage),
             onClick = ::showHomePageDialog
-        )
-
-        clickableDynamicPreference(
-            preference = SETTINGS_SEARCH_ENGINE,
-            summary = getSearchEngineSummary(searchEngineProvider.provideSearchEngine()),
-            onClick = ::showSearchProviderDialog
         )
 
         clickableDynamicPreference(
@@ -212,14 +205,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
             onCheckChange = { userPreferences.forceZoom = it }
         )
 
-        iPrefSearchCustomImageUrl = clickablePreference(
-            preference = getString(R.string.pref_key_search_custom_image_url),
-            onClick = ::showImageUrlPicker
-        )
-
-        // Only visible when using custom URL instead of predefined search engines
-        iPrefSearchCustomImageUrl.isVisible = (userPreferences.searchChoice == 0)
-
         // Default browser preference
         defaultBrowserPreference = find<Preference>(R.string.pref_key_default_browser)?.apply {
 
@@ -332,20 +317,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
 
         userPreferences.suggestionChoice = choice
         summaryUpdater.updateSummary(stringArray[choice.value])
-    }
-
-    private fun showImageUrlPicker() : Boolean {
-        activity?.let {
-            BrowserDialog.showEditText(it as AppCompatActivity,
-                R.string.pref_title_search_custom_image_url,
-                R.string.hint_url,
-                userPreferences.imageUrlString,
-                R.string.action_ok) { s ->
-                userPreferences.imageUrlString = s
-            }
-        }
-
-        return true
     }
 
     private fun userAgentSummary() =
@@ -524,67 +495,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
         }
     }
 
-    private fun getSearchEngineSummary(baseSearchEngine: BaseSearchEngine): String {
-        return if (baseSearchEngine is CustomSearch) {
-            baseSearchEngine.queryUrl
-        } else {
-            getString(baseSearchEngine.titleRes)
-        }
-    }
-
-    private fun convertSearchEngineToString(searchEngines: List<BaseSearchEngine>): Array<CharSequence> =
-        searchEngines.map { getString(it.titleRes) }.toTypedArray()
-
-    private fun showSearchProviderDialog(summaryUpdater: SummaryUpdater) : Boolean {
-        activity?.let {
-            BrowserDialog.showCustomDialog(it as AppCompatActivity) {
-                setTitle(resources.getString(R.string.title_search_engine))
-
-                val searchEngineList = searchEngineProvider.provideAllSearchEngines()
-
-                val chars = convertSearchEngineToString(searchEngineList)
-
-                val n = searchEngineList.indexOfFirst { e -> searchEngineProvider.mapSearchEngineToPreferenceIndex(e) == userPreferences.searchChoice }.coerceAtLeast(0)
-
-                setSingleChoiceItems(chars, n) { _, which ->
-                    val searchEngine = searchEngineList[which]
-
-                    // Store the search engine preference
-                    val preferencesIndex = searchEngineProvider.mapSearchEngineToPreferenceIndex(searchEngine)
-                    userPreferences.searchChoice = preferencesIndex
-                    // Update that guy visibility
-                    iPrefSearchCustomImageUrl.isVisible = (userPreferences.searchChoice == 0)
-
-                    if (searchEngine is CustomSearch) {
-                        // Show the URL picker
-                        showCustomSearchDialog(searchEngine, summaryUpdater)
-                    } else {
-                        // Set the new search engine summary
-                        summaryUpdater.updateSummary(getSearchEngineSummary(searchEngine))
-                    }
-                }
-                setPositiveButton(R.string.action_ok, null)
-            }
-        }
-
-        return true
-    }
-
-    private fun showCustomSearchDialog(customSearch: CustomSearch, summaryUpdater: SummaryUpdater) {
-        activity?.let {
-            BrowserDialog.showEditText(
-                it as AppCompatActivity,
-                R.string.search_engine_custom,
-                R.string.search_engine_custom,
-                userPreferences.searchUrl,
-                R.string.action_ok
-            ) { searchUrl ->
-                userPreferences.searchUrl = searchUrl
-                summaryUpdater.updateSummary(getSearchEngineSummary(customSearch))
-            }
-        }
-    }
-
     private fun searchSuggestionChoiceToTitle(choice: Suggestions): String =
         when (choice) {
             Suggestions.NONE -> getString(R.string.search_suggestions_off)
@@ -734,7 +644,6 @@ class GeneralSettingsFragment : AbstractSettingsFragment() {
         private const val SETTINGS_USER_AGENT = "agent"
         private const val SETTINGS_DOWNLOAD = "download"
         private const val SETTINGS_HOME = "home"
-        private const val SETTINGS_SEARCH_ENGINE = "search"
         private const val SETTINGS_SUGGESTIONS = "suggestions_choice"
         private const val SETTINGS_FORCE_ZOOM = "force_zoom"
     }

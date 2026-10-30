@@ -10,18 +10,7 @@
         app:icon="@drawable/ic_home_outline"
         app:singleLineTitle="false" />
 
-    <Preference
-        android:key="search"
-        android:title="@string/search"
-        app:icon="@drawable/ic_search"
-        app:singleLineTitle="false" />
 
-    <Preference
-        android:key="@string/pref_key_search_custom_image_url"
-        android:title="@string/pref_title_search_custom_image_url"
-        android:summary="@string/pref_summary_search_custom_image_url"
-        app:icon="@drawable/ic_image"
-        app:singleLineTitle="false" />
 
     <Preference
         android:key="suggestions_choice"
