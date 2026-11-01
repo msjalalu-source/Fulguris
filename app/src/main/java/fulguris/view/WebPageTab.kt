@@ -345,10 +345,10 @@ class WebPageTab(
      * cannot leave the stop button stuck on or make it flicker.
      */
     var isLoading = false
+        internal set
 
     /** Used to ignore the delayed safety check of a previous navigation */
     private var iEarlyProgressToken = 0
-        internal set
 
     /**
      * Get the current user agent used by the WebView.
