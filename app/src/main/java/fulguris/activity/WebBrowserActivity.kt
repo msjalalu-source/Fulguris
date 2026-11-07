@@ -2634,7 +2634,11 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
                 }
 
                 // TODO: Have a settings option to translate in new tab
-                tabsManager.loadUrlInCurrentView("https://translate.google.com/translate?sl=auto&tl=$languageCode&u=$currentUrl")
+                if (currentUrl == null || currentUrl.isSpecialUrl()) {
+                    application.toast("This page cannot be translated")
+                    return true
+                }
+                tabsManager.loadUrlInCurrentView(translateUrl(currentUrl, languageCode))
                 // TODO: support other translation providers?
                 //tabsManager.loadUrlInCurrentView("https://www.translatetheweb.com/?from=&to=$locale&dl=$locale&a=$currentUrl")
                 return true
@@ -3640,6 +3644,25 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
             tabsManager.allTabs.forEach { it.initializePreferences() }
         }
         sheet.show()
+    }
+
+    /**
+     * Build the address of the translated version of the given page using the translate.goog scheme.
+     * It does not use frames, unlike the old translate.google.com/translate address which sites often block.
+     * Falls back to the old address, properly encoded, for host names we cannot convert.
+     */
+    private fun translateUrl(pageUrl: String, languageCode: String): String {
+        val uri = Uri.parse(pageUrl)
+        val host = uri.host?.lowercase() ?: ""
+        val simpleHost = host.isNotEmpty() && host.all { it in 'a'..'z' || it in '0'..'9' || it == '-' || it == '.' } && uri.port == -1
+        val prefix = host.replace("-", "--").replace(".", "-")
+        if ((uri.scheme == "http" || uri.scheme == "https") && simpleHost && !host.contains("xn--") && prefix.length <= 63) {
+            val path = uri.encodedPath.let { if (it.isNullOrEmpty()) "/" else it }
+            val query = uri.encodedQuery?.let { "$it&" } ?: ""
+            val fragment = uri.encodedFragment?.let { "#$it" } ?: ""
+            return "https://$prefix.translate.goog$path?${query}_x_tr_sl=auto&_x_tr_tl=$languageCode&_x_tr_hl=$languageCode&_x_tr_pto=wapp$fragment"
+        }
+        return "https://translate.google.com/translate?sl=auto&tl=$languageCode&u=" + Uri.encode(pageUrl)
     }
 
     override fun onResume() {
