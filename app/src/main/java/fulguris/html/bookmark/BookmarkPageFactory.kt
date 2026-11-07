@@ -135,7 +135,17 @@ class BookmarkPageFactory @Inject constructor(
                         val newElement = repeatableElement.clone {
                             tag("a") { attr("href", it.url) }
                             // Make sure we use proper icon for dark themes
-                            tag("img") { attr("src", if (useDarkTheme && it.iconUrlOnDark.isNotEmpty()) it.iconUrlOnDark else it.iconUrl) }
+                            tag("img") {
+                                val localIcon = if (useDarkTheme && it.iconUrlOnDark.isNotEmpty()) it.iconUrlOnDark else it.iconUrl
+                                val siteHost = if (it.url.startsWith("http://") || it.url.startsWith("https://")) android.net.Uri.parse(it.url).host else null
+                                if (siteHost.isNullOrEmpty()) {
+                                    attr("src", localIcon)
+                                } else {
+                                    // Show the real site icon, fall back to our local icon when it cannot be loaded
+                                    attr("src", "https://icons.duckduckgo.com/ip3/$siteHost.ico")
+                                    attr("onerror", "this.onerror=null;this.src='$localIcon'")
+                                }
+                            }
                             id("title") { appendText(it.title) }
                         }
                         appendChild(newElement)
