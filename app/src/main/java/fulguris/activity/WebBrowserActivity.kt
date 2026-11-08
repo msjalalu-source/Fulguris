@@ -3341,8 +3341,8 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     /**
      * From [WebBrowser].
      *
-     * The last tab was closed: stay alive and show the empty state (the large
-     * Fulguris logo, as on the onboarding first screen) instead of exiting.
+     * The last tab was closed: stay alive and open our home page in a new tab
+     * instead of exiting or showing an empty screen.
      */
     override fun showNoTabs() {
         Timber.i("No tabs left, showing empty state")
@@ -3352,7 +3352,12 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         // destroy it once the close animation is done (or right away if the user
         // does not want tab animations or another animation is already running).
         cleanUpNoTabsContainers()
-        showNoTabsEmptyState()
+        // Never stay on the empty screen: open our home page in a new tab instead
+        if (isIncognito()) {
+            tabsManager.newTab(incognitoPageInitializer, true)
+        } else {
+            tabsManager.newTab(homePageInitializer, true)
+        }
     }
 
     /**
