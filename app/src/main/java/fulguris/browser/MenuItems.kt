@@ -48,40 +48,21 @@ object MenuItems {
      * Also used to order items in our full menu.
      */
     private val all = mapOf(
-        MenuItemId.MainMenu to MenuItem(
-            id = MenuItemId.MainMenu,
-            labelId = R.string.action_main_menu,
-            iconId = R.drawable.ic_menu,
-            viewId = R.id.menuItemMainMenu,
-            canBeInMainMenu = false,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu,
-            optional = true
-        ),
-        MenuItemId.TabMenu to MenuItem(
-            id = MenuItemId.TabMenu,
-            labelId = R.string.action_tab_menu,
-            iconId = R.drawable.ic_more_vertical,
-            viewId = R.id.menuItemTabMenu,
+        MenuItemId.NewTab to MenuItem(
+            id = MenuItemId.NewTab,
+            labelId = R.string.action_new_tab,
+            iconId = R.drawable.ic_action_plus,
+            viewId = R.id.menuItemNewTab,
             canBeInMainMenu = true,
-            canBeInTabMenu = false,
+            canBeInTabMenu = true,
             defaultMenu = MenuType.MainMenu,
-            optional = true
+            preferredMenu = MenuType.MainMenu
         ),
-        MenuItemId.Sessions to MenuItem(
-            id = MenuItemId.Sessions,
-            labelId = R.string.action_sessions,
-            iconId = R.drawable.ic_tab_group_outline,
-            viewId = R.id.menuItemSessions,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.MainMenu
-        ),
-        MenuItemId.Bookmarks to MenuItem(
-            id = MenuItemId.Bookmarks,
-            labelId = R.string.action_bookmarks,
-            iconId = R.drawable.ic_bookmarks,
-            viewId = R.id.menuItemBookmarks,
+        MenuItemId.Incognito to MenuItem(
+            id = MenuItemId.Incognito,
+            labelId = R.string.action_incognito,
+            iconId = R.drawable.ic_incognito,
+            viewId = R.id.menuItemIncognito,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
             defaultMenu = MenuType.MainMenu
@@ -104,30 +85,56 @@ object MenuItems {
             canBeInTabMenu = true,
             defaultMenu = MenuType.MainMenu
         ),
-        MenuItemId.NewTab to MenuItem(
-            id = MenuItemId.NewTab,
-            labelId = R.string.action_new_tab,
-            iconId = R.drawable.ic_action_plus,
-            viewId = R.id.menuItemNewTab,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.HiddenMenu,
-            preferredMenu = MenuType.MainMenu
-        ),
-        MenuItemId.Incognito to MenuItem(
-            id = MenuItemId.Incognito,
-            labelId = R.string.action_incognito,
-            iconId = R.drawable.ic_incognito,
-            viewId = R.id.menuItemIncognito,
+        MenuItemId.Bookmarks to MenuItem(
+            id = MenuItemId.Bookmarks,
+            labelId = R.string.action_bookmarks,
+            iconId = R.drawable.ic_bookmarks,
+            viewId = R.id.menuItemBookmarks,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
             defaultMenu = MenuType.MainMenu
         ),
-        MenuItemId.Options to MenuItem(
-            id = MenuItemId.Options,
-            labelId = R.string.options,
-            iconId = R.drawable.ic_build,
-            viewId = R.id.menuItemOptions,
+        MenuItemId.Share to MenuItem(
+            id = MenuItemId.Share,
+            labelId = R.string.action_share,
+            iconId = R.drawable.ic_share,
+            viewId = R.id.menuItemShare,
+            canBeInMainMenu = true,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.MainMenu
+        ),
+        MenuItemId.Find to MenuItem(
+            id = MenuItemId.Find,
+            labelId = R.string.action_find,
+            iconId = R.drawable.ic_find_in_page,
+            viewId = R.id.menuItemFind,
+            canBeInMainMenu = true,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.MainMenu
+        ),
+        MenuItemId.Translate to MenuItem(
+            id = MenuItemId.Translate,
+            labelId = R.string.action_translate,
+            iconId = R.drawable.ic_translate,
+            viewId = R.id.menuItemTranslate,
+            canBeInMainMenu = true,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.MainMenu
+        ),
+        MenuItemId.AddToHome to MenuItem(
+            id = MenuItemId.AddToHome,
+            labelId = R.string.action_add_to_homescreen,
+            iconId = R.drawable.ic_add_to_home_screen,
+            viewId = R.id.menuItemAddToHome,
+            canBeInMainMenu = true,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.MainMenu
+        ),
+        MenuItemId.DesktopMode to MenuItem(
+            id = MenuItemId.DesktopMode,
+            labelId = R.string.agent_desktop,
+            iconId = R.drawable.ic_desktop,
+            viewId = R.id.menuItemDesktopMode,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
             defaultMenu = MenuType.MainMenu
@@ -142,6 +149,57 @@ object MenuItems {
             canBeHidden = false,
             defaultMenu = MenuType.MainMenu
         ),
+        MenuItemId.FullMenu to MenuItem(
+            id = MenuItemId.FullMenu,
+            labelId = R.string.action_full_menu,
+            iconId = R.drawable.ic_reorder_outline,
+            viewId = R.id.menuItemFullMenu,
+            canBeInMainMenu = true,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.MainMenu,
+            preferredMenu = MenuType.MainMenu
+        ),
+        MenuItemId.MainMenu to MenuItem(
+            id = MenuItemId.MainMenu,
+            labelId = R.string.action_main_menu,
+            iconId = R.drawable.ic_menu,
+            viewId = R.id.menuItemMainMenu,
+            canBeInMainMenu = false,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.TabMenu,
+            optional = true
+        ),
+        MenuItemId.TabMenu to MenuItem(
+            id = MenuItemId.TabMenu,
+            labelId = R.string.action_tab_menu,
+            iconId = R.drawable.ic_more_vertical,
+            viewId = R.id.menuItemTabMenu,
+            canBeInMainMenu = true,
+            canBeInTabMenu = false,
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu,
+            optional = true
+        ),
+        MenuItemId.Sessions to MenuItem(
+            id = MenuItemId.Sessions,
+            labelId = R.string.action_sessions,
+            iconId = R.drawable.ic_tab_group_outline,
+            viewId = R.id.menuItemSessions,
+            canBeInMainMenu = true,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
+        ),
+        MenuItemId.Options to MenuItem(
+            id = MenuItemId.Options,
+            labelId = R.string.options,
+            iconId = R.drawable.ic_build,
+            viewId = R.id.menuItemOptions,
+            canBeInMainMenu = true,
+            canBeInTabMenu = true,
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
+        ),
         MenuItemId.Exit to MenuItem(
             id = MenuItemId.Exit,
             labelId = R.string.exit,
@@ -152,8 +210,6 @@ object MenuItems {
             defaultMenu = MenuType.HiddenMenu,
             preferredMenu = MenuType.MainMenu
         ),
-
-        // Tab menu items (can also appear in both menus)
         MenuItemId.TabHistory to MenuItem(
             id = MenuItemId.TabHistory,
             labelId = R.string.pref_title_page_history,
@@ -161,34 +217,8 @@ object MenuItems {
             viewId = R.id.menuItemPageHistory,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
-        ),
-        MenuItemId.Share to MenuItem(
-            id = MenuItemId.Share,
-            labelId = R.string.action_share,
-            iconId = R.drawable.ic_share,
-            viewId = R.id.menuItemShare,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
-        ),
-        MenuItemId.Find to MenuItem(
-            id = MenuItemId.Find,
-            labelId = R.string.action_find,
-            iconId = R.drawable.ic_find_in_page,
-            viewId = R.id.menuItemFind,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
-        ),
-        MenuItemId.Translate to MenuItem(
-            id = MenuItemId.Translate,
-            labelId = R.string.action_translate,
-            iconId = R.drawable.ic_translate,
-            viewId = R.id.menuItemTranslate,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
         ),
         MenuItemId.ReaderMode to MenuItem(
             id = MenuItemId.ReaderMode,
@@ -197,7 +227,8 @@ object MenuItems {
             viewId = R.id.menuItemReaderMode,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
         ),
         MenuItemId.AdBlock to MenuItem(
             id = MenuItemId.AdBlock,
@@ -206,7 +237,8 @@ object MenuItems {
             viewId = R.id.menuItemAdBlock,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
         ),
         MenuItemId.DarkMode to MenuItem(
             id = MenuItemId.DarkMode,
@@ -215,16 +247,8 @@ object MenuItems {
             viewId = R.id.menuItemDarkMode,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
-        ),
-        MenuItemId.DesktopMode to MenuItem(
-            id = MenuItemId.DesktopMode,
-            labelId = R.string.agent_desktop,
-            iconId = R.drawable.ic_desktop,
-            viewId = R.id.menuItemDesktopMode,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
         ),
         MenuItemId.DomainSettings to MenuItem(
             id = MenuItemId.DomainSettings,
@@ -233,7 +257,8 @@ object MenuItems {
             viewId = R.id.menuItemDomainSettings,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
         ),
         MenuItemId.AddBookmark to MenuItem(
             id = MenuItemId.AddBookmark,
@@ -242,7 +267,8 @@ object MenuItems {
             viewId = R.id.menuItemAddBookmark,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
         ),
         MenuItemId.Print to MenuItem(
             id = MenuItemId.Print,
@@ -251,7 +277,8 @@ object MenuItems {
             viewId = R.id.menuItemPrint,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
+            defaultMenu = MenuType.HiddenMenu,
+            preferredMenu = MenuType.MainMenu
         ),
         MenuItemId.Requests to MenuItem(
             id = MenuItemId.Requests,
@@ -283,15 +310,6 @@ object MenuItems {
             defaultMenu = MenuType.HiddenMenu,
             preferredMenu = MenuType.TabMenu
         ),
-        MenuItemId.AddToHome to MenuItem(
-            id = MenuItemId.AddToHome,
-            labelId = R.string.action_add_to_homescreen,
-            iconId = R.drawable.ic_add_to_home_screen,
-            viewId = R.id.menuItemAddToHome,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
-        ),
         MenuItemId.ForceReload to MenuItem(
             id = MenuItemId.ForceReload,
             labelId = R.string.action_force_reload,
@@ -317,15 +335,6 @@ object MenuItems {
             labelId = R.string.action_launch_app,
             iconId = R.drawable.ic_apps,
             viewId = R.id.menuItemLaunchApp,
-            canBeInMainMenu = true,
-            canBeInTabMenu = true,
-            defaultMenu = MenuType.TabMenu
-        ),
-        MenuItemId.FullMenu to MenuItem(
-            id = MenuItemId.FullMenu,
-            labelId = R.string.action_full_menu,
-            iconId = R.drawable.ic_reorder_outline,
-            viewId = R.id.menuItemFullMenu,
             canBeInMainMenu = true,
             canBeInTabMenu = true,
             defaultMenu = MenuType.HiddenMenu,
