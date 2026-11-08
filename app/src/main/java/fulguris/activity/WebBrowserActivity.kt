@@ -646,7 +646,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         // or if our bottom sheet dialog is opened
         // or if using vertical embedded tab bar
         // or drawer is opened, assuming tab drawer since that's the only one with sessions button
-        if (tabsView is TabsDesktopView || tabsDialog.isShowing || !tabBarInDrawer || drawerOpened) {
+        if (tabsView is TabsDesktopView || tabsDialog.isShowing || tabsPopup?.isShowing == true || !tabBarInDrawer || drawerOpened) {
             // Use on screen session button as anchor
             buttonSessions.let { iMenuSessions.show(it) }
         }
@@ -1428,6 +1428,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
     private fun closePanelTabs() {
         iBinding.drawerLayout.closeDrawer(getTabDrawer())
         tabsDialog.dismiss()
+        tabsPopup?.dismiss()
     }
 
     /**
@@ -4221,7 +4222,7 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
      *
      */
     private fun showingTabs() : Boolean {
-        return tabsDialog.isShowing || iBinding.drawerLayout.isDrawerOpen(getTabDrawer())
+        return tabsDialog.isShowing || tabsPopup?.isShowing == true || iBinding.drawerLayout.isDrawerOpen(getTabDrawer())
     }
 
 
@@ -4270,6 +4271,48 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         }
     }
 
+    // Our Chrome-like tab list pop-up
+    private var tabsPopup: android.widget.PopupWindow? = null
+
+    /**
+     * Show our tab list in a pop-up window, same width and position as our main menu.
+     * The list scrolls, and the pop-up closes when tapping outside or going back.
+     */
+    private fun showTabsPopup() {
+        tabsPopup?.dismiss()
+        val anchor = iBindingToolbarContent.tabsButton
+        val bottom = configPrefs.toolbarsBottom
+        val loc = IntArray(2)
+        anchor.getLocationInWindow(loc)
+        val rootHeight = iBinding.root.height
+        val room = if (bottom) loc[1] + anchor.height else rootHeight - loc[1]
+        val height = minOf((room * 0.9F).toInt(), fulguris.utils.Utils.dpToPx(480F))
+        val width = fulguris.utils.Utils.dpToPx(250F)
+
+        val v = tabsView as View
+        v.removeFromParent()
+        val holder = android.widget.LinearLayout(this)
+        holder.orientation = android.widget.LinearLayout.VERTICAL
+        holder.background = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.popup_menu_background)
+        holder.clipToOutline = true
+        holder.addView(v, android.widget.LinearLayout.LayoutParams(
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT))
+
+        val popup = android.widget.PopupWindow(holder, width, height, true)
+        popup.elevation = 100F
+        popup.animationStyle = if (bottom) R.style.AnimationMenuBottom else R.style.AnimationMenu
+        popup.setBackgroundDrawable(android.graphics.drawable.ColorDrawable())
+        tabsPopup = popup
+        popup.showAtLocation(
+            anchor,
+            if (bottom) android.view.Gravity.BOTTOM or android.view.Gravity.RIGHT else android.view.Gravity.TOP or android.view.Gravity.RIGHT,
+            fulguris.utils.Utils.dpToPx(10F),
+            if (bottom) rootHeight - loc[1] - anchor.height else loc[1]
+        )
+        mainHandler.postDelayed({ tryScrollToCurrentTab() }, 100)
+    }
+
     /**
      * Open our tab list, works for both drawers and bottom sheets.
      */
@@ -4292,12 +4335,8 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
         tabListView?.requestFocus()
 
         if (userPreferences.useBottomSheets) {
-            //createTabsDialog()
-            tabsDialog.show()
-            // See: https://github.com/material-components/material-components-android/issues/2165
-            mainHandler.postDelayed({
-                tabsDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }, 100)
+            // Chrome-like: show our tab list in a pop-up just like our main menu
+            showTabsPopup()
         } else {
             // Open our tab list drawer
             iBinding.drawerLayout.openDrawer(getTabDrawer())
