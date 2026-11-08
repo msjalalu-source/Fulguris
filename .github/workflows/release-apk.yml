@@ -20,6 +20,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'gradle'
 
       - name: Give permission to gradlew
         run: chmod +x gradlew
@@ -45,7 +46,7 @@ jobs:
               test -n "$KEYSTORE_PASSWORD"
               test -n "$KEY_ALIAS"
               test -n "$KEY_PASSWORD"
-              ./gradlew assembleSlionsFullFdroidDebug assembleSlionsFullFdroidRelease --no-daemon
+              ./gradlew assembleSlionsFullFdroidRelease --no-daemon
             ) && exit 0
             echo "Attempt $i failed, retrying in 15s"
             sleep 15
@@ -57,11 +58,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p out
-          DEBUG_APK="$(find app/build/outputs/apk -type f -name '*.apk' | grep '/debug/' | head -n 1)"
           RELEASE_APK="$(find app/build/outputs/apk -type f -name '*.apk' | grep '/release/' | head -n 1)"
-          test -n "$DEBUG_APK"
           test -n "$RELEASE_APK"
-          cp "$DEBUG_APK" out/MuslimBrowser-Debug.apk
           cp "$RELEASE_APK" out/MuslimBrowser-Release.apk
           ls -lh out
 
@@ -75,4 +73,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "build-${{ github.run_number }}"             out/MuslimBrowser-Debug.apk out/MuslimBrowser-Release.apk             --title "Muslim Browser build ${{ github.run_number }}"             --notes "Debug APK and signed Release APK"
+          gh release create "build-${{ github.run_number }}"             out/MuslimBrowser-Release.apk             --title "Muslim Browser build ${{ github.run_number }}"             --notes "Signed Release APK"
