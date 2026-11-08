@@ -40,10 +40,17 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          test -n "$KEYSTORE_PASSWORD"
-          test -n "$KEY_ALIAS"
-          test -n "$KEY_PASSWORD"
-          ./gradlew assembleSlionsFullFdroidDebug assembleSlionsFullFdroidRelease --no-daemon
+          for i in 1 2 3; do
+            (
+              test -n "$KEYSTORE_PASSWORD"
+              test -n "$KEY_ALIAS"
+              test -n "$KEY_PASSWORD"
+              ./gradlew assembleSlionsFullFdroidDebug assembleSlionsFullFdroidRelease --no-daemon
+            ) && exit 0
+            echo "Attempt $i failed, retrying in 15s"
+            sleep 15
+          done
+          exit 1
 
       - name: Collect APKs
         shell: bash
