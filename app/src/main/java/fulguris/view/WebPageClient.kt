@@ -490,6 +490,13 @@ class WebPageClient(
             return
         }
 
+        // Keyword lock safety net for anything that went around our other checks
+        if (fulguris.utils.KeywordBlocker.isBlocked(url)) {
+            view.stopLoading()
+            view.loadDataWithBaseURL(null, fulguris.utils.KeywordBlocker.blockedPageHtml(), "text/html", "UTF-8", null)
+            return
+        }
+
         // Reset the flag to allow onPageFinished to execute for this new page
         // This is critical for history navigation (back/forward) which may load from cache
         // and not trigger shouldInterceptRequest for the main frame
@@ -865,6 +872,12 @@ class WebPageClient(
         Timber.i("$ihs : shouldOverrideUrlLoading - ${request.url}")
 
         val url = request.url.toString()
+
+        // Keyword lock: blocked searches from links, forms and redirects
+        if (request.isForMainFrame && fulguris.utils.KeywordBlocker.isBlocked(url)) {
+            view.loadDataWithBaseURL(null, fulguris.utils.KeywordBlocker.blockedPageHtml(), "text/html", "UTF-8", null)
+            return true
+        }
         val uri = Uri.parse(url)
         val headers = webPageTab.requestHeaders
 
@@ -1206,6 +1219,13 @@ class WebPageClient(
     override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
         Timber.d("$ihs : doUpdateVisitedHistory: $isReload - $url - ${view.url}")
         super.doUpdateVisitedHistory(view, url, isReload)
+
+        // Keyword lock for searches that change the address without loading a new page
+        if (fulguris.utils.KeywordBlocker.isBlocked(url) && view.canGoBack()) {
+            view.goBack()
+            android.widget.Toast.makeText(view.context, "This search is blocked", android.widget.Toast.LENGTH_SHORT).show()
+            return
+        }
 
         // We used that
         //onPageFinishedDone = false

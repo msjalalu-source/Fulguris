@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_keywords">Custom keywords</string>
+    <string name="pref_summary_keywords">Blocked search words</string>
+    <string name="pref_title_keywords_info">Blocked words</string>
+    <string name="pref_summary_keywords_info">%1$d words are blocked in searches. They are fixed and cannot be changed.</string>
+</resources>

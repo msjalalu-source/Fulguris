@@ -28,6 +28,14 @@
         />
 
     <Preference
+        x:fragment="fulguris.settings.fragment.KeywordsSettingsFragment"
+        x:title="@string/settings_keywords"
+        x:summary="@string/pref_summary_keywords"
+        x:icon="@drawable/ic_security"
+        x:singleLineTitle="false"
+        />
+
+    <Preference
         x:fragment="fulguris.settings.fragment.DomainsSettingsFragment"
         x:summary="@string/pref_summary_domains"
         x:title="@string/pref_title_domains"

@@ -87,7 +87,6 @@ android {
 
 buildTypes {
         debug {
-            signingConfig signingConfigs.release
             debuggable = true
             // If we disable minify then we need multi DEX.
             multiDexEnabled = true
@@ -538,4 +537,18 @@ mezzanine {
 
 kotlin {
     jvmToolchain(17)
+}
+
+
+// Require the real release keystore for Release APK assembly.
+gradle.taskGraph.whenReady { taskGraph ->
+    def releaseAssemblyRequested = taskGraph.allTasks.any {
+        it.name.toLowerCase().startsWith("assemble") &&
+        it.name.toLowerCase().contains("release")
+    }
+    if (releaseAssemblyRequested && !System.getenv("KEYSTORE_PATH")) {
+        throw new GradleException(
+            "Release signing requires KEYSTORE_PATH and valid release credentials."
+        )
+    }
 }

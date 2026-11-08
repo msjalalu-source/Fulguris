@@ -1349,6 +1349,13 @@ class WebPageTab(
      */
     fun loadUrl(aUrl: String, onLoadComplete: (() -> Unit)? = null) {
 
+        // Keyword lock: blocked searches are not even sent out
+        if (fulguris.utils.KeywordBlocker.isBlocked(aUrl)) {
+            webView?.loadDataWithBaseURL(null, fulguris.utils.KeywordBlocker.blockedPageHtml(), "text/html", "UTF-8", null)
+            onLoadComplete?.invoke()
+            return
+        }
+
         // Mark loading for the new page load so the stop button shows right away
         isLoading = true
 

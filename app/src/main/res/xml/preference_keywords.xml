@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <x.PreferenceCategory
+        android:title="@string/settings_keywords"
+        app:singleLineTitle="false">
+
+        <Preference
+            android:key="pref_key_keywords_info"
+            android:title="@string/pref_title_keywords_info"
+            android:summary="@string/pref_summary_keywords_info"
+            android:selectable="false"
+            app:singleLineTitle="false" />
+
+    </x.PreferenceCategory>
+
+</PreferenceScreen>
