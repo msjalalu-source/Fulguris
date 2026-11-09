@@ -351,6 +351,23 @@ class WebPageTab(
     private var iEarlyProgressToken = 0
 
     /**
+     * Show our loading bar right away when a page load is requested,
+     * without waiting for the web view to report progress.
+     * Used when loading an address and when the user follows a link.
+     */
+    fun showLoadingStarted() {
+        isLoading = true
+        webBrowser.onLoadStarting(this)
+        val earlyToken = ++iEarlyProgressToken
+        webView?.postDelayed({
+            // Nothing started loading after a while, a download or a blocked page perhaps, so finish the bar
+            if (earlyToken == iEarlyProgressToken && isLoading && (webView?.progress ?: 100) >= 100) {
+                webBrowser.onProgressChanged(this, 100)
+            }
+        }, 15000)
+    }
+
+    /**
      * Get the current user agent used by the WebView.
      *
      * @return retuns the current user agent of the WebView instance, or an empty string if the
@@ -1357,17 +1374,8 @@ class WebPageTab(
         }
 
         // Mark loading for the new page load so the stop button shows right away
-        isLoading = true
-
-        // Show our loading bar right away, do not wait for the web view to report progress
-        webBrowser.onLoadStarting(this)
-        val earlyToken = ++iEarlyProgressToken
-        webView?.postDelayed({
-            // Nothing started loading after a while, a download or a blocked page perhaps, so finish the bar
-            if (earlyToken == iEarlyProgressToken && isLoading && (webView?.progress ?: 100) >= 100) {
-                webBrowser.onProgressChanged(this, 100)
-            }
-        }, 15000)
+        // and show our loading bar right away, do not wait for the web view to report progress
+        showLoadingStarted()
 
         iTargetUrl = Uri.parse(aUrl)
 

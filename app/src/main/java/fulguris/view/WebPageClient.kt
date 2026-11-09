@@ -930,7 +930,15 @@ class WebPageClient(
         // Continue with loading the url
         // Don't show error page if we have an intent to launch an app
         // Still show error page if no intent to signal unsupported scheme
-        return shouldStopUrlLoading(view, url, headers, intent != null)
+        val stopLoading = shouldStopUrlLoading(view, url, headers, intent != null)
+
+        // Show our loading bar right away when the user follows a link, not only once the page starts
+        if (!stopLoading && request.isForMainFrame
+            && (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N || !request.isRedirect)
+            && (url.startsWith("http://") || url.startsWith("https://"))) {
+            webPageTab.showLoadingStarted()
+        }
+        return stopLoading
     }
 
     /**
