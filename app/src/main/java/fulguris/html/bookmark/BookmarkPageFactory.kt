@@ -55,7 +55,7 @@ class BookmarkPageFactory @Inject constructor(
     private val userPreferences: UserPreferences,
 ) : HtmlPageFactory {
 
-    private val title = application.getString(R.string.action_bookmarks)
+    private val title = application.getString(R.string.home_page_title)
     private val folderIconFile by lazy { File(application.cacheDir, FOLDER_ICON) }
     private val folderIconFileOnDark by lazy { File(application.cacheDir, FOLDER_ICON_ON_DARK) }
     private val defaultIconFile by lazy { File(application.cacheDir, DEFAULT_ICON) }

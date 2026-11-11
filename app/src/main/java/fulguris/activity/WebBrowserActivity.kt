@@ -4043,6 +4043,11 @@ abstract class WebBrowserActivity : ThemedBrowserActivity(),
 
         tabsManager.currentTab?.let {tab ->
 
+            // Like Chrome, nothing in the address bar on our home page, the hint shows instead
+            if (tab.url.isBookmarkUrl()) {
+                return ""
+            }
+
             if (isLoading()) {
                 return tab.url
             }
