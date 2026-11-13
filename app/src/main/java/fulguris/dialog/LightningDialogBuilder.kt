@@ -368,6 +368,28 @@ class LightningDialogBuilder @Inject constructor(
         )
 
     /**
+     * Ask the user before deleting the whole history, then refresh the history page.
+     */
+    fun showClearHistoryDialog(
+        activity: Activity,
+        webBrowser: WebBrowser
+    ) {
+        BrowserDialog.showPositiveNegativeDialog(
+            aContext = activity,
+            title = R.string.title_clear_history,
+            message = R.string.dialog_history,
+            positiveButton = DialogItem(title = R.string.action_yes) {
+                historyModel.deleteHistory()
+                    .subscribeOn(databaseScheduler)
+                    .observeOn(mainScheduler)
+                    .subscribe(webBrowser::handleHistoryChange)
+            },
+            negativeButton = DialogItem(title = R.string.action_no) {},
+            onCancel = {}
+        )
+    }
+
+    /**
      * Show a dialog allowing the user to action either a link or an image.
      */
     fun showLongPressLinkImageDialog(

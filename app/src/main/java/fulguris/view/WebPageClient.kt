@@ -873,6 +873,12 @@ class WebPageClient(
 
         val url = request.url.toString()
 
+        // Delete all button on our history page
+        if (url == "fulguris://clear-history") {
+            webPageTab.showClearHistoryDialog()
+            return true
+        }
+
         // Keyword lock: blocked searches from links, forms and redirects
         if (request.isForMainFrame && fulguris.utils.KeywordBlocker.isBlocked(url)) {
             view.loadDataWithBaseURL(null, fulguris.utils.KeywordBlocker.blockedPageHtml(), "text/html", "UTF-8", null)

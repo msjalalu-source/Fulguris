@@ -368,6 +368,13 @@ class WebPageTab(
     }
 
     /**
+     * Ask the user to confirm and delete the whole history, from the delete button of our history page.
+     */
+    fun showClearHistoryDialog() {
+        dialogBuilder.showClearHistoryDialog(activity, webBrowser)
+    }
+
+    /**
      * Get the current user agent used by the WebView.
      *
      * @return retuns the current user agent of the WebView instance, or an empty string if the
